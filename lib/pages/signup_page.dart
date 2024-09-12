@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planit/utils/google_auth.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
@@ -17,6 +18,10 @@ class _SignupPageState extends State<SignupPage> {
 
   void handleSignIn() {
     Navigator.pushNamed(context, '/');
+  }
+
+  void handleGoogleSignIn() {
+    GoogleAuth().signInWithGoogle();
   }
 
   @override
@@ -102,7 +107,9 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
                 const SizedBox(height: 60.0),
-                const GoogleAuthOption(),
+                GoogleAuthOption(
+                  onPress: handleGoogleSignIn,
+                ),
                 const SizedBox(height: 40.0),
               ],
             ),

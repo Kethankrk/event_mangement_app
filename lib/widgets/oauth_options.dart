@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GoogleAuthOption extends StatelessWidget {
-  const GoogleAuthOption({super.key});
+  final VoidCallback onPress;
+  const GoogleAuthOption({
+    super.key,
+    required this.onPress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class GoogleAuthOption extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: FilledButton(
-              onPressed: () {},
+              onPressed: onPress,
               style: FilledButton.styleFrom(
                 backgroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 15.0),
