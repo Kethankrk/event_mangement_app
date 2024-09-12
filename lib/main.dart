@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planit/pages/homepage.dart';
+import 'package:planit/pages/signup_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'PlanIt',
-      home: Homepage(),
+      initialRoute: '/login',
+      routes: {
+        '/': (context) => const Homepage(),
+        '/login': (context) => const SignupPage()
+      },
     );
   }
 }
