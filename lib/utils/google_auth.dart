@@ -1,11 +1,21 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleAuth {
-  signInWithGoogle() async {
-    final GoogleSignInAccount? user = await GoogleSignIn().signIn();
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? user = await GoogleSignIn().signIn();
+      final email = user!.email;
+      final profile = user.photoUrl;
 
-    final email = user!.email;
-
-    print("Access token $email");
+      print("Email: $email, profiel pic: $profile");
+    } catch (e) {
+      print("Unable to sigin");
+      Fluttertoast.showToast(
+        msg: "Failed to signin with google",
+        backgroundColor: Colors.redAccent,
+      );
+    }
   }
 }
