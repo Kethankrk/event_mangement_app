@@ -11,7 +11,7 @@ class GoogleAuthOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const Row(
             children: [
@@ -53,21 +53,6 @@ class GoogleAuthOption extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Not a member?",
-                style: TextStyle(color: Colors.white),
-              ),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "Register now",
-                    style: TextStyle(color: Colors.blue),
-                  ))
-            ],
-          )
         ],
       ),
     );

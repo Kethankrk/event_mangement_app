@@ -106,9 +106,23 @@ class _SignupPageState extends State<SignupPage> {
                     onPressed: handleSignIn,
                   ),
                 ),
-                const SizedBox(height: 60.0),
                 GoogleAuthOption(
                   onPress: handleGoogleSignIn,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Not a member?",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          "Register now",
+                          style: TextStyle(color: Colors.blue),
+                        ))
+                  ],
                 ),
                 const SizedBox(height: 40.0),
               ],
