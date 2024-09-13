@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:planit/utils/google_auth.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
-
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController cfmPasswordController = TextEditingController();
+class _LoginPageState extends State<LoginPage> {
+  late TextEditingController userNameController = TextEditingController();
+  late TextEditingController passwordController = TextEditingController();
+
   bool _showPassword = false;
+
+  void handleSignIn() {
+    Navigator.pushNamed(context, '/');
+  }
+
+  void handleGoogleSignIn() {
+    GoogleAuth().signInWithGoogle();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,7 @@ class _SignupPageState extends State<SignupPage> {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Let's sign you up",
+                    "Let's sign you in",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 42.0,
@@ -43,7 +51,7 @@ class _SignupPageState extends State<SignupPage> {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Welcome to, \nPlanIt",
+                    "Welcome back, \nYou've been missed!",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24.0,
@@ -53,7 +61,7 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 50.0),
                 CustomInputField(
                   label: "Email",
-                  controller: emailController,
+                  controller: userNameController,
                   prefixIcon: const Icon(
                     Icons.person,
                     color: Color.fromARGB(255, 97, 97, 97),
@@ -63,26 +71,6 @@ class _SignupPageState extends State<SignupPage> {
                 CustomInputField(
                   label: "Password",
                   controller: passwordController,
-                  prefixIcon: const Icon(
-                    Icons.lock,
-                    color: Color.fromARGB(255, 97, 97, 97),
-                  ),
-                  obstruct: !_showPassword,
-                  suffixIconButton: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _showPassword = !_showPassword;
-                      });
-                    },
-                    icon: Icon(
-                      _showPassword ? Icons.visibility_off : Icons.visibility,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                CustomInputField(
-                  label: "Confirm Password",
-                  controller: cfmPasswordController,
                   prefixIcon: const Icon(
                     Icons.lock,
                     color: Color.fromARGB(255, 97, 97, 97),
@@ -114,36 +102,36 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
-                    text: "Sign Up",
-                    onPressed: () {},
+                    text: "Sign In",
+                    onPressed: handleSignIn,
                   ),
                 ),
                 GoogleAuthOption(
-                  onPress: () {},
+                  onPress: handleGoogleSignIn,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Already a member?",
+                      "Not a member?",
                       style: TextStyle(color: Colors.white),
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, "/login");
+                          Navigator.pushReplacementNamed(context, "/signup");
                         },
                         child: const Text(
-                          "Login",
+                          "Register now",
                           style: TextStyle(color: Colors.blue),
                         ))
                   ],
                 ),
+                const SizedBox(height: 40.0),
               ],
             ),
           ),
         ),
       ),
     );
-    ;
   }
 }
