@@ -29,15 +29,15 @@ class CustomInputField extends StatelessWidget {
       obscuringCharacter: "*",
       decoration: InputDecoration(
         label: Text(label),
-        labelStyle: const TextStyle(color: Colors.grey),
+        labelStyle: const TextStyle(color: Color.fromARGB(255, 97, 97, 97)),
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 97, 97, 97)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.grey),
+          borderSide: const BorderSide(color: Color.fromARGB(255, 97, 97, 97)),
         ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon ?? suffixIconButton,
