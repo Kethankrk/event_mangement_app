@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planit/utils/google_auth.dart';
+import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
@@ -86,18 +87,18 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 20.0),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
+                      child: GestureDetector(
+                        onTap: () {},
                         child: const Text(
                           "Recover Password",
-                          style: TextStyle(color: Colors.blue),
+                          style: hyperLinkTextTheme,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 30.0),
                     SizedBox(
                       width: double.infinity,
                       child: CustomButton(
@@ -115,17 +116,17 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Not a member?",
+                          "Not a member? ",
                           style: TextStyle(color: Colors.white),
                         ),
-                        TextButton(
-                            onPressed: () {
+                        GestureDetector(
+                            onTap: () {
                               Navigator.pushReplacementNamed(
                                   context, "/signup");
                             },
                             child: const Text(
                               "Register now",
-                              style: TextStyle(color: Colors.blue),
+                              style: hyperLinkTextTheme,
                             ))
                       ],
                     ),

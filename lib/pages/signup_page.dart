@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
@@ -102,18 +103,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10.0),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Recover Password",
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
+                    const SizedBox(height: 40.0),
                     SizedBox(
                       width: double.infinity,
                       child: CustomButton(
@@ -131,16 +121,16 @@ class _SignupPageState extends State<SignupPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Already a member?",
+                          "Already a member? ",
                           style: TextStyle(color: Colors.white),
                         ),
-                        TextButton(
-                            onPressed: () {
+                        GestureDetector(
+                            onTap: () {
                               Navigator.pushReplacementNamed(context, "/login");
                             },
                             child: const Text(
                               "Login",
-                              style: TextStyle(color: Colors.blue),
+                              style: hyperLinkTextTheme,
                             ))
                       ],
                     ),
