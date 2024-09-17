@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planit/pages/homepage.dart';
+import 'package:planit/pages/home_page.dart';
 import 'package:planit/pages/login_page.dart';
 import 'package:planit/pages/signup_page.dart';
 
