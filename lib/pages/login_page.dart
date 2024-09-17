@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:planit/utils/google_auth.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
-
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController cfmPasswordController = TextEditingController();
+class _LoginPageState extends State<LoginPage> {
+  late TextEditingController userNameController = TextEditingController();
+  late TextEditingController passwordController = TextEditingController();
+
   bool _showPassword = false;
 
-  void _handleSignup() {
-    Navigator.pushNamed(context, "/verify");
+  void handleSignIn() {
+    Navigator.pushNamed(context, '/');
+  }
+
+  void handleGoogleSignIn() {
+    GoogleAuth().signInWithGoogle();
   }
 
   @override
@@ -40,20 +44,22 @@ class _SignupPageState extends State<SignupPage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Let's sign you up",
+                        "Let's sign you in",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     const SizedBox(height: 10.0),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text("Welcome to, \nPlanIt",
-                          style: Theme.of(context).textTheme.titleSmall),
+                      child: Text(
+                        "Welcome back, \nYou've been missed!",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                     const SizedBox(height: 50.0),
                     CustomInputField(
                       label: "Email",
-                      controller: emailController,
+                      controller: userNameController,
                       prefixIcon: const Icon(
                         Icons.person,
                         color: Color.fromARGB(255, 97, 97, 97),
@@ -82,58 +88,49 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     const SizedBox(height: 20.0),
-                    CustomInputField(
-                      label: "Confirm Password",
-                      controller: cfmPasswordController,
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Color.fromARGB(255, 97, 97, 97),
-                      ),
-                      obstruct: !_showPassword,
-                      suffixIconButton: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _showPassword = !_showPassword;
-                          });
-                        },
-                        icon: Icon(
-                          _showPassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: const Text(
+                          "Recover Password",
+                          style: hyperLinkTextTheme,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 40.0),
+                    const SizedBox(height: 30.0),
                     SizedBox(
                       width: double.infinity,
                       child: CustomButton(
-                        text: "Sign Up",
-                        onPressed: _handleSignup,
+                        text: "Sign In",
+                        onPressed: handleSignIn,
                       ),
                     ),
                     SizedBox(
-                      height: 200.0,
+                      height: 200,
                       child: GoogleAuthOption(
-                        onPress: () {},
+                        onPress: handleGoogleSignIn,
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Already a member? ",
+                          "Not a member? ",
                           style: TextStyle(color: Colors.white),
                         ),
                         GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacementNamed(context, "/login");
+                              Navigator.pushReplacementNamed(
+                                  context, "/signup");
                             },
                             child: const Text(
-                              "Login",
+                              "Register now",
                               style: hyperLinkTextTheme,
                             ))
                       ],
                     ),
+                    const SizedBox(height: 40.0),
                   ],
                 ),
               ),
