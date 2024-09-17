@@ -16,6 +16,10 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController cfmPasswordController = TextEditingController();
   bool _showPassword = false;
 
+  void _handleSignup() {
+    Navigator.pushNamed(context, "/verify");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,27 +36,18 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   children: [
                     const SizedBox(height: 30.0),
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Let's sign you up",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 42.0,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     const SizedBox(height: 10.0),
-                    const Align(
+                    Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Welcome to, \nPlanIt",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                        ),
-                      ),
+                      child: Text("Welcome to, \nPlanIt",
+                          style: Theme.of(context).textTheme.titleSmall),
                     ),
                     const SizedBox(height: 50.0),
                     CustomInputField(
@@ -123,7 +118,7 @@ class _SignupPageState extends State<SignupPage> {
                       width: double.infinity,
                       child: CustomButton(
                         text: "Sign Up",
-                        onPressed: () {},
+                        onPressed: _handleSignup,
                       ),
                     ),
                     SizedBox(
