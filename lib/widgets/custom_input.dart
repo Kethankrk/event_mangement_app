@@ -22,14 +22,15 @@ class CustomInputField extends StatelessWidget {
     return TextField(
       controller: controller,
       style: const TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w300,
-      ),
+          color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
       obscureText: obstruct ?? false,
       obscuringCharacter: "*",
       decoration: InputDecoration(
-        label: Text(label),
-        labelStyle: const TextStyle(color: Color.fromARGB(255, 97, 97, 97)),
+        label: Text(
+          label,
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+        labelStyle: Theme.of(context).textTheme.labelSmall,
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
