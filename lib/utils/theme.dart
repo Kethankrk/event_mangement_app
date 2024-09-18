@@ -16,7 +16,8 @@ final baseTheme = ThemeData(
     ),
     titleSmall: TextStyle(
         fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.w400),
-    labelSmall: TextStyle(fontSize: 16, color: Color.fromARGB(255, 97, 97, 97)),
+    labelSmall:
+        TextStyle(fontSize: 18, color: Color.fromARGB(255, 158, 158, 158)),
     displaySmall: TextStyle(fontSize: 16, color: Colors.white),
   ),
 );
@@ -25,4 +26,8 @@ const hyperLinkTextTheme = TextStyle(
   color: Colors.blue,
   decoration: TextDecoration.underline,
   decorationColor: Colors.blue,
+);
+
+const errorTextTheme = TextStyle(
+  color: Colors.red,
 );
