@@ -82,8 +82,8 @@ class LabelLarge extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(
-        fontSize: 18,
-        color: Color.fromARGB(255, 158, 158, 158),
+        fontSize: 16,
+        color: Color.fromARGB(255, 221, 221, 221),
       ),
     );
   }
