@@ -4,9 +4,14 @@ import 'package:planit/pages/event_create_page.dart';
 import 'package:planit/pages/home_page.dart';
 import 'package:planit/pages/login_page.dart';
 import 'package:planit/pages/signup_page.dart';
+import 'package:planit/providers/navbar_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => NavbarProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
