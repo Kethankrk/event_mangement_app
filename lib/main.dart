@@ -4,7 +4,6 @@ import 'package:planit/pages/event_create_page.dart';
 import 'package:planit/pages/home_page.dart';
 import 'package:planit/pages/login_page.dart';
 import 'package:planit/pages/signup_page.dart';
-import 'package:planit/utils/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'PlanIt',
       initialRoute: '/login',
-      theme: baseTheme,
       routes: {
         '/': (context) => const Homepage(),
         '/login': (context) => const LoginPage(),
