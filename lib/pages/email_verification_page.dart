@@ -33,6 +33,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      navbar: false,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(

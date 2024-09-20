@@ -25,6 +25,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      navbar: false,
       child: Center(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
