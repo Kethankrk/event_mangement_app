@@ -95,7 +95,7 @@ class LabelSmall extends StatelessWidget {
   const LabelSmall({
     super.key,
     required this.text,
-    this.color = const Color.fromARGB(255, 158, 158, 158),
+    this.color = const Color.fromARGB(255, 221, 221, 221),
   });
   @override
   Widget build(BuildContext context) {
