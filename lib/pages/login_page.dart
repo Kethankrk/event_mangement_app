@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: userNameController,
                 prefixIcon: const Icon(
                   Icons.person,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 20.0),
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: passwordController,
                 prefixIcon: const Icon(
                   Icons.lock,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
                 obstruct: !_showPassword,
                 suffixIconButton: IconButton(
@@ -69,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   icon: Icon(
                     _showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.white,
                   ),
                 ),
               ),

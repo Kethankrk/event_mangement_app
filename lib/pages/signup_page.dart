@@ -44,7 +44,7 @@ class _SignupPageState extends State<SignupPage> {
                 controller: emailController,
                 prefixIcon: const Icon(
                   Icons.person,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 20.0),
@@ -53,7 +53,7 @@ class _SignupPageState extends State<SignupPage> {
                 controller: passwordController,
                 prefixIcon: const Icon(
                   Icons.lock,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
                 obstruct: !_showPassword,
                 suffixIconButton: IconButton(
@@ -64,6 +64,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                   icon: Icon(
                     _showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -73,7 +74,7 @@ class _SignupPageState extends State<SignupPage> {
                 controller: cfmPasswordController,
                 prefixIcon: const Icon(
                   Icons.lock,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
                 obstruct: !_showPassword,
                 suffixIconButton: IconButton(
@@ -84,6 +85,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                   icon: Icon(
                     _showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.white,
                   ),
                 ),
               ),
