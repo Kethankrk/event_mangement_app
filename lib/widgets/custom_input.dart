@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planit/utils/theme.dart';
 
 class CustomInputField extends StatelessWidget {
   final String label;
@@ -26,11 +27,7 @@ class CustomInputField extends StatelessWidget {
       obscureText: obstruct ?? false,
       obscuringCharacter: "*",
       decoration: InputDecoration(
-        label: Text(
-          label,
-          style: Theme.of(context).textTheme.labelSmall,
-        ),
-        labelStyle: Theme.of(context).textTheme.labelSmall,
+        label: LabelLarge(text: label),
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
