@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planit/utils/theme.dart';
 
 class CustomInputField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String? hintText;
   final TextEditingController controller;
   final Icon? prefixIcon;
@@ -13,7 +13,7 @@ class CustomInputField extends StatelessWidget {
   final int? minLines;
   const CustomInputField({
     super.key,
-    required this.label,
+    this.label,
     required this.controller,
     this.hintText,
     this.prefixIcon,
@@ -35,7 +35,7 @@ class CustomInputField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       decoration: InputDecoration(
-        label: LabelLarge(text: label),
+        label: label != null ? LabelLarge(text: label!) : null,
         hintText: hintText,
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
