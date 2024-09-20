@@ -31,19 +31,13 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             children: [
               const SizedBox(height: 30.0),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Let's sign you up",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: TitleLarge(text: "Let's sign you up")),
               const SizedBox(height: 10.0),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Welcome to, \nPlanIt",
-                    style: Theme.of(context).textTheme.titleSmall),
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: TitleSmall(text: "Welcome to, \nPlanIt")),
               const SizedBox(height: 50.0),
               CustomInputField(
                 label: "Email",
@@ -114,14 +108,12 @@ class _SignupPageState extends State<SignupPage> {
                     "Already a member? ",
                     style: TextStyle(color: Colors.white),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, "/login");
-                      },
-                      child: const Text(
-                        "Login",
-                        style: hyperLinkTextTheme,
-                      ))
+                  customTextButton(
+                    onPress: () {
+                      Navigator.pushReplacementNamed(context, "/login");
+                    },
+                    text: "Login",
+                  )
                 ],
               ),
             ],

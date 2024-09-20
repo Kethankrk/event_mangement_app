@@ -35,21 +35,14 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               const SizedBox(height: 30.0),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Let's sign you in",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: TitleLarge(text: "Let's sign you in")),
               const SizedBox(height: 10.0),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Welcome back, \nYou've been missed!",
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child:
+                      TitleSmall(text: "Welcome back, \nYou've been missed!")),
               const SizedBox(height: 50.0),
               CustomInputField(
                 label: "Email",
@@ -82,13 +75,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20.0),
               Align(
                 alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: const Text(
-                    "Recover Password",
-                    style: hyperLinkTextTheme,
-                  ),
-                ),
+                child:
+                    customTextButton(text: "Recover Password", onPress: () {}),
               ),
               const SizedBox(height: 30.0),
               SizedBox(
@@ -111,14 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                     "Not a member? ",
                     style: TextStyle(color: Colors.white),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, "/signup");
-                      },
-                      child: const Text(
-                        "Register now",
-                        style: hyperLinkTextTheme,
-                      ))
+                  customTextButton(
+                    onPress: () {
+                      Navigator.pushReplacementNamed(context, "/signup");
+                    },
+                    text: "Register now",
+                  ),
                 ],
               ),
               const SizedBox(height: 40.0),
