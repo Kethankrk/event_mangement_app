@@ -35,16 +35,22 @@ class CustomInputField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       decoration: InputDecoration(
-        label: label != null ? LabelLarge(text: label!) : null,
+        label: label != null
+            ? Text(
+                label!,
+                style: const TextStyle(color: Colors.white),
+              )
+            : null,
         hintText: hintText,
+        hintStyle: const TextStyle(color: Colors.grey),
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Color.fromARGB(255, 97, 97, 97)),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Color.fromARGB(255, 97, 97, 97)),
+          borderSide: const BorderSide(color: Colors.white),
         ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon ?? suffixIconButton,
@@ -91,15 +97,14 @@ class StandardInputField extends StatelessWidget {
           minLines: minLines,
           decoration: InputDecoration(
             hintText: hintText,
+            hintStyle: const TextStyle(color: Colors.grey),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide:
-                  const BorderSide(color: Color.fromARGB(255, 97, 97, 97)),
+              borderSide: const BorderSide(color: Colors.white),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
-              borderSide:
-                  const BorderSide(color: Color.fromARGB(255, 97, 97, 97)),
+              borderSide: const BorderSide(color: Colors.white),
             ),
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon ?? suffixIconButton,
