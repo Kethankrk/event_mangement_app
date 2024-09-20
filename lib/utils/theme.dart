@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 
 class TitleLarge extends StatelessWidget {
   final String text;
-  const TitleLarge({super.key, required this.text});
+  final Color color;
+
+  const TitleLarge({
+    super.key,
+    required this.text,
+    this.color = const Color.fromARGB(255, 158, 158, 158),
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -19,7 +25,13 @@ class TitleLarge extends StatelessWidget {
 
 class TitleMedium extends StatelessWidget {
   final String text;
-  const TitleMedium({super.key, required this.text});
+  final Color color;
+
+  const TitleMedium({
+    super.key,
+    required this.text,
+    this.color = const Color.fromARGB(255, 158, 158, 158),
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -36,7 +48,13 @@ class TitleMedium extends StatelessWidget {
 
 class TitleSmall extends StatelessWidget {
   final String text;
-  const TitleSmall({super.key, required this.text});
+  final Color color;
+
+  const TitleSmall({
+    super.key,
+    required this.text,
+    this.color = const Color.fromARGB(255, 158, 158, 158),
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -52,7 +70,13 @@ class TitleSmall extends StatelessWidget {
 
 class LabelLarge extends StatelessWidget {
   final String text;
-  const LabelLarge({super.key, required this.text});
+  final Color color;
+
+  const LabelLarge({
+    super.key,
+    required this.text,
+    this.color = const Color.fromARGB(255, 158, 158, 158),
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -60,6 +84,26 @@ class LabelLarge extends StatelessWidget {
       style: const TextStyle(
         fontSize: 18,
         color: Color.fromARGB(255, 158, 158, 158),
+      ),
+    );
+  }
+}
+
+class LabelSmall extends StatelessWidget {
+  final String text;
+  final Color color;
+  const LabelSmall({
+    super.key,
+    required this.text,
+    this.color = const Color.fromARGB(255, 158, 158, 158),
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 12,
+        color: color,
       ),
     );
   }
