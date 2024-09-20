@@ -3,21 +3,26 @@ import 'package:flutter/material.dart';
 class TitleLarge extends StatelessWidget {
   final String text;
   final Color color;
+  final AlignmentGeometry? alignment;
 
   const TitleLarge({
     super.key,
     required this.text,
-    this.color = const Color.fromARGB(255, 158, 158, 158),
+    this.color = Colors.white,
+    this.alignment,
   });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 42,
-        fontWeight: FontWeight.w700,
-        color: Colors.white,
-        height: 1.0,
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 42,
+          fontWeight: FontWeight.w700,
+          color: color,
+          height: 1.0,
+        ),
       ),
     );
   }
@@ -26,21 +31,26 @@ class TitleLarge extends StatelessWidget {
 class TitleMedium extends StatelessWidget {
   final String text;
   final Color color;
+  final AlignmentGeometry? alignment;
 
   const TitleMedium({
     super.key,
     required this.text,
-    this.color = const Color.fromARGB(255, 158, 158, 158),
+    this.color = Colors.white,
+    this.alignment,
   });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 38,
-        fontWeight: FontWeight.w500,
-        color: Colors.white,
-        height: 1.0,
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 38,
+          fontWeight: FontWeight.w500,
+          color: color,
+          height: 1.0,
+        ),
       ),
     );
   }
@@ -49,20 +59,25 @@ class TitleMedium extends StatelessWidget {
 class TitleSmall extends StatelessWidget {
   final String text;
   final Color color;
+  final AlignmentGeometry? alignment;
 
   const TitleSmall({
     super.key,
     required this.text,
-    this.color = const Color.fromARGB(255, 158, 158, 158),
+    this.color = Colors.white,
+    this.alignment,
   });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 24.0,
-        color: Colors.white,
-        fontWeight: FontWeight.w400,
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 24.0,
+          color: color,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
@@ -71,19 +86,27 @@ class TitleSmall extends StatelessWidget {
 class LabelLarge extends StatelessWidget {
   final String text;
   final Color color;
+  final AlignmentGeometry? alignment;
 
   const LabelLarge({
     super.key,
     required this.text,
-    this.color = const Color.fromARGB(255, 158, 158, 158),
+    this.color = Colors.white,
+    this.alignment,
   });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 16,
-        color: Color.fromARGB(255, 221, 221, 221),
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Align(
+        alignment: alignment ?? Alignment.centerLeft,
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            color: color,
+          ),
+        ),
       ),
     );
   }
@@ -92,18 +115,24 @@ class LabelLarge extends StatelessWidget {
 class LabelSmall extends StatelessWidget {
   final String text;
   final Color color;
+  final AlignmentGeometry? alignment;
+
   const LabelSmall({
     super.key,
     required this.text,
     this.color = const Color.fromARGB(255, 221, 221, 221),
+    this.alignment,
   });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 12,
-        color: color,
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 12,
+          color: color,
+        ),
       ),
     );
   }
@@ -111,14 +140,25 @@ class LabelSmall extends StatelessWidget {
 
 class DisplayMedium extends StatelessWidget {
   final String text;
-  const DisplayMedium({super.key, required this.text});
+  final AlignmentGeometry? alignment;
+  final Color color;
+
+  const DisplayMedium({
+    super.key,
+    required this.text,
+    this.alignment,
+    this.color = Colors.white,
+  });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 16,
-        color: Colors.white,
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 16,
+          color: color,
+        ),
       ),
     );
   }
@@ -126,14 +166,25 @@ class DisplayMedium extends StatelessWidget {
 
 class DisplaySmall extends StatelessWidget {
   final String text;
-  const DisplaySmall({super.key, required this.text});
+  final AlignmentGeometry? alignment;
+  final Color color;
+
+  const DisplaySmall({
+    super.key,
+    required this.text,
+    this.alignment,
+    this.color = Colors.white,
+  });
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 14,
-        color: Colors.white,
+    return Align(
+      alignment: alignment ?? Alignment.centerLeft,
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 14,
+          color: color,
+        ),
       ),
     );
   }
@@ -141,7 +192,13 @@ class DisplaySmall extends StatelessWidget {
 
 class ErrorText extends StatelessWidget {
   final String text;
-  const ErrorText({super.key, required this.text});
+  final AlignmentGeometry? alignment;
+
+  const ErrorText({
+    super.key,
+    required this.text,
+    this.alignment,
+  });
   @override
   Widget build(BuildContext context) {
     return Text(
