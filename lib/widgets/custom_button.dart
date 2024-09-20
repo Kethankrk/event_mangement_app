@@ -27,3 +27,15 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+Widget customTextButton(
+        {required String text, required VoidCallback onPress}) =>
+    GestureDetector(
+      onTap: onPress,
+      child: Text(text,
+          style: const TextStyle(
+            color: Colors.blue,
+            decoration: TextDecoration.underline,
+            decorationColor: Colors.blue,
+          )),
+    );
