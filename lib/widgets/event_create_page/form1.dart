@@ -6,6 +6,8 @@ import 'package:planit/providers/event_create_provider.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
+import 'package:planit/widgets/dynamic_list_input.dart';
+import 'package:planit/widgets/event_create_page/ticket_create_modal.dart';
 import 'package:provider/provider.dart';
 
 class EventDetailsForm extends StatelessWidget {
@@ -105,64 +107,31 @@ class EventDetailsForm extends StatelessWidget {
             ),
           ),
         const SizedBox(height: 30.0),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: LabelLarge(text: "Attendees requirements"),
-        ),
+        const LabelLarge(text: "Attendees requirements"),
         const SizedBox(height: 5.0),
-        AttendeesReqSection(),
+        DynamicListInput(
+          dataList: context.watch<EventFormDataProvider>().req,
+          dataAddFunc: context.read<EventFormDataProvider>().addReq,
+          hintText: "Add a requirement.",
+        ),
+        const SizedBox(height: 30.0),
+        const LabelLarge(text: "Tickets"),
+        const SizedBox(height: 10.0),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: customTextButton(
+              text: "+ add ticket",
+              onPress: () {
+                showTicketModal(context);
+              }),
+        )
       ],
     );
   }
 
+  // ----------------------| methods |---------------------------
+
   Future<XFile?> _addImage(BuildContext context) async {
     return await ImagePicker().pickImage(source: ImageSource.gallery);
-  }
-}
-
-// ##############################| Attendees requirement adding section |##############################
-class AttendeesReqSection extends StatelessWidget {
-  final TextEditingController controller = TextEditingController();
-  AttendeesReqSection({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      ...List.generate(context.watch<EventFormDataProvider>().req.length,
-          (index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color(0xff343434),
-            ),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: DisplaySmall(
-                  text: context.watch<EventFormDataProvider>().req[index]),
-            ),
-          ),
-        );
-      }),
-      const SizedBox(height: 20.0),
-      CustomInputField(
-        controller: controller,
-        hintText: "Add a requirement.",
-        suffixIconButton: IconButton(
-            color: Colors.blue,
-            onPressed: () {
-              if (controller.text.isEmpty) return;
-              context.read<EventFormDataProvider>().addReq(controller.text);
-              controller.clear();
-            },
-            icon: const Icon(
-              Icons.add_circle_outlined,
-            )),
-      )
-    ]);
   }
 }
