@@ -14,6 +14,11 @@ class EventFormDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeReq(int index) {
+    _attendeesRequirements.removeAt(index);
+    notifyListeners();
+  }
+
   void addImage(XFile? image) {
     _heroImage = image;
     notifyListeners();
