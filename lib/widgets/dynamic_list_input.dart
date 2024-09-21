@@ -6,11 +6,13 @@ class DynamicListInput extends StatelessWidget {
   final TextEditingController controller = TextEditingController();
   final List<String> dataList;
   final void Function(String) dataAddFunc;
+  final void Function(int) removeDataFunc;
   final String? hintText;
   DynamicListInput({
     super.key,
     required this.dataList,
     required this.dataAddFunc,
+    required this.removeDataFunc,
     this.hintText,
   });
 
@@ -26,7 +28,19 @@ class DynamicListInput extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
               color: const Color(0xff343434),
             ),
-            child: DisplaySmall(text: dataList[index]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DisplaySmall(text: dataList[index]),
+                IconButton(
+                  onPressed: () {
+                    removeDataFunc(index);
+                  },
+                  color: Colors.red,
+                  icon: const Icon(Icons.close),
+                )
+              ],
+            ),
           ),
         );
       }),
