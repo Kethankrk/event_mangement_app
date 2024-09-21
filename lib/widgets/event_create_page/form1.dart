@@ -122,7 +122,11 @@ class EventDetailsForm extends StatelessWidget {
           child: customTextButton(
               text: "+ add ticket",
               onPress: () {
-                showTicketModal(context);
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) => const TicketCreateModal(),
+                );
               }),
         )
       ],
