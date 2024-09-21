@@ -126,7 +126,15 @@ class EventDetailsForm extends StatelessWidget {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => const TicketCreateModal(),
+                  builder: (BuildContext ctx) {
+                    return ChangeNotifierProvider.value(
+                      value: Provider.of<EventFormDataProvider>(
+                        context,
+                        listen: false,
+                      ),
+                      child: const TicketCreateModal(),
+                    );
+                  },
                 );
               }),
         )
