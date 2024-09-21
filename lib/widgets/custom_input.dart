@@ -11,6 +11,7 @@ class CustomInputField extends StatelessWidget {
   final bool? obstruct;
   final int? maxLines;
   final int? minLines;
+  final String? errorText;
   const CustomInputField({
     super.key,
     this.label,
@@ -22,6 +23,7 @@ class CustomInputField extends StatelessWidget {
     this.obstruct,
     this.maxLines = 1,
     this.minLines,
+    this.errorText,
   });
 
   @override
@@ -42,6 +44,7 @@ class CustomInputField extends StatelessWidget {
               )
             : null,
         hintText: hintText,
+        errorText: errorText,
         hintStyle: const TextStyle(color: Colors.grey),
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
@@ -69,6 +72,7 @@ class StandardInputField extends StatelessWidget {
   final bool? obstruct;
   final int? maxLines;
   final int? minLines;
+  final String? errorText;
   const StandardInputField({
     super.key,
     required this.label,
@@ -80,6 +84,7 @@ class StandardInputField extends StatelessWidget {
     this.obstruct,
     this.maxLines = 1,
     this.minLines,
+    this.errorText,
   });
 
   @override
@@ -97,6 +102,7 @@ class StandardInputField extends StatelessWidget {
           minLines: minLines,
           decoration: InputDecoration(
             hintText: hintText,
+            errorText: errorText,
             hintStyle: const TextStyle(color: Colors.grey),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
