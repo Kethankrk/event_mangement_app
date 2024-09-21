@@ -152,9 +152,9 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
     }
     final TicketData ticketData = TicketData(
       title: titleController.text,
-      price: priceController.text,
+      price: int.parse(priceController.text),
       perks: perks,
-      limit: ticketLimit.text.isNotEmpty ? ticketLimit.text : "0",
+      limit: ticketLimit.text.isNotEmpty ? int.parse(ticketLimit.text) : 0,
     );
     ctx.read<EventFormDataProvider>().addTicketData(ticketData);
     Navigator.pop(context);

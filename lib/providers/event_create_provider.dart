@@ -41,8 +41,8 @@ class EventFormDataProvider extends ChangeNotifier {
 
 class TicketData {
   String title;
-  String price;
-  String limit;
+  int price;
+  int limit;
   List<String> perks;
 
   TicketData({
