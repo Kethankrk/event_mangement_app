@@ -75,6 +75,7 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
               DynamicListInput(
                 dataList: perks,
                 dataAddFunc: _addPerks,
+                removeDataFunc: _removePerks,
                 hintText: "Add perks",
               ),
               const SizedBox(height: 20.0),
@@ -103,6 +104,12 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
   void _addPerks(String value) {
     setState(() {
       perks.add(value);
+    });
+  }
+
+  void _removePerks(int index) {
+    setState(() {
+      perks.removeAt(index);
     });
   }
 }
