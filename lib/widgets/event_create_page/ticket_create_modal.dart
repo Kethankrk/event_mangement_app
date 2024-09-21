@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:planit/providers/event_create_provider.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/dynamic_list_input.dart';
+import 'package:provider/provider.dart';
 
 class TicketCreateModal extends StatefulWidget {
   const TicketCreateModal({
@@ -19,6 +21,9 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
   final TextEditingController ticketLimit = TextEditingController();
   final List<String> perks = [];
   bool _isLimited = false;
+  String? titleError;
+  String? priceError;
+  String? ticketLimitError;
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +45,14 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
               StandardInputField(
                 label: "Title",
                 hintText: "eg: Professional",
+                errorText: titleError,
                 controller: titleController,
               ),
               const SizedBox(height: 20.0),
               StandardInputField(
                 label: "Price",
                 hintText: "eg: 500",
+                errorText: priceError,
                 controller: priceController,
               ),
               const SizedBox(height: 20.0),
@@ -64,8 +71,9 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
                   if (_isLimited)
                     Expanded(
                       child: CustomInputField(
-                        controller: ticketLimit,
                         hintText: "eg: 50",
+                        errorText: ticketLimitError,
+                        controller: ticketLimit,
                       ),
                     ),
                 ],
@@ -90,7 +98,12 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
                   ),
                   const SizedBox(width: 20.0),
                   Expanded(
-                    child: CustomButton(text: "Create", onPressed: () {}),
+                    child: CustomButton(
+                      text: "Create",
+                      onPressed: () {
+                        _handleCreate(context);
+                      },
+                    ),
                   ),
                 ],
               )
@@ -111,5 +124,39 @@ class _TicketCreateModalState extends State<TicketCreateModal> {
     setState(() {
       perks.removeAt(index);
     });
+  }
+
+  void _handleCreate(BuildContext ctx) {
+    if (titleController.text.isEmpty) {
+      setState(() {
+        titleError = "This field is required";
+      });
+      return;
+    }
+    if (priceController.text.isEmpty) {
+      setState(() {
+        priceError = "This field is required";
+      });
+      return;
+    } else if (int.parse(priceController.text) < 0) {
+      setState(() {
+        priceError = "Please enter a possitive number";
+      });
+      return;
+    }
+    if (ticketLimit.text.isNotEmpty && int.parse(ticketLimit.text) <= 0) {
+      setState(() {
+        ticketLimitError = "Invalid limit, enter a posstive number";
+      });
+      return;
+    }
+    final TicketData ticketData = TicketData(
+      title: titleController.text,
+      price: priceController.text,
+      perks: perks,
+      limit: ticketLimit.text.isNotEmpty ? ticketLimit.text : "0",
+    );
+    ctx.read<EventFormDataProvider>().addTicketData(ticketData);
+    Navigator.pop(context);
   }
 }
