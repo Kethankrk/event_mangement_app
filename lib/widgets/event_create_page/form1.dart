@@ -8,6 +8,7 @@ import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/dynamic_list_input.dart';
 import 'package:planit/widgets/event_create_page/ticket_create_modal.dart';
+import 'package:planit/widgets/ticket_widget.dart';
 import 'package:provider/provider.dart';
 
 class EventDetailsForm extends StatelessWidget {
@@ -117,6 +118,18 @@ class EventDetailsForm extends StatelessWidget {
         ),
         const SizedBox(height: 30.0),
         const LabelLarge(text: "Tickets"),
+        ...List.generate(context.watch<EventFormDataProvider>().tickets.length,
+            (index) {
+          EventFormDataProvider obj = context.watch<EventFormDataProvider>();
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Ticket(
+              title: obj.tickets[index].title,
+              price: obj.tickets[index].price,
+              limit: obj.tickets[index].limit,
+            ),
+          );
+        }),
         const SizedBox(height: 10.0),
         Align(
           alignment: Alignment.centerLeft,
