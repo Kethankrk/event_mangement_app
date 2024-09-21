@@ -70,7 +70,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const TitleMedium(text: "Create an even"),
+            const TitleMedium(text: "Create an event"),
             const SizedBox(height: 20.0),
             CustomStepper(
               steps: steps,
