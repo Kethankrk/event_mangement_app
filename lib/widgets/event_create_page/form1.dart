@@ -112,6 +112,7 @@ class EventDetailsForm extends StatelessWidget {
         DynamicListInput(
           dataList: context.watch<EventFormDataProvider>().req,
           dataAddFunc: context.read<EventFormDataProvider>().addReq,
+          removeDataFunc: context.read<EventFormDataProvider>().removeReq,
           hintText: "Add a requirement.",
         ),
         const SizedBox(height: 30.0),
