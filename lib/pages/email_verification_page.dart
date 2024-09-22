@@ -33,20 +33,16 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      navbar: false,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             const SizedBox(height: 60),
-            Text(
-              "Enter verification code from your email",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            const TitleMedium(text: "Enter verification code from your email"),
             const SizedBox(height: 40.0),
-            Text(
-              "Please enter the code we emailed you tester@gmail.com",
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
+            const TitleSmall(
+                text: "Please enter the code we emailed you tester@gmail.com"),
             const SizedBox(height: 60.0),
             PinCodeTextField(
               appContext: context,
@@ -80,11 +76,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                 inactiveColor: const Color.fromARGB(255, 97, 97, 97),
               ),
             ),
-            if (hasError)
-              Text(
-                error,
-                style: errorTextTheme,
-              ),
+            if (hasError) ErrorText(text: error),
             const SizedBox(height: 20.0),
             SizedBox(
               width: double.infinity,
@@ -94,10 +86,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
             const SizedBox(height: 20.0),
             Align(
               alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {},
-                child: const Text("Resend email", style: hyperLinkTextTheme),
-              ),
+              child: customTextButton(onPress: () {}, text: "Resend email"),
             )
           ],
         ),

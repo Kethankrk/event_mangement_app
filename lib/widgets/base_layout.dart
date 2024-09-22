@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:planit/widgets/bottom_navbar.dart';
 
 class BaseLayout extends StatelessWidget {
   final Widget child;
-  const BaseLayout({super.key, required this.child});
+  final bool navbar;
+  const BaseLayout({super.key, required this.child, this.navbar = true});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: navbar ? const BottomNavbar() : null,
       body: Container(
         height: double.infinity,
         padding: const EdgeInsets.all(40.0),

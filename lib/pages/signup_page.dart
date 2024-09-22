@@ -25,32 +25,27 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      navbar: false,
       child: Center(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               const SizedBox(height: 30.0),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Let's sign you up",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: TitleLarge(text: "Let's sign you up")),
               const SizedBox(height: 10.0),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Welcome to, \nPlanIt",
-                    style: Theme.of(context).textTheme.titleSmall),
-              ),
+              const Align(
+                  alignment: Alignment.centerLeft,
+                  child: TitleSmall(text: "Welcome to, \nPlanIt")),
               const SizedBox(height: 50.0),
               CustomInputField(
                 label: "Email",
                 controller: emailController,
                 prefixIcon: const Icon(
                   Icons.person,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 20.0),
@@ -59,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
                 controller: passwordController,
                 prefixIcon: const Icon(
                   Icons.lock,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
                 obstruct: !_showPassword,
                 suffixIconButton: IconButton(
@@ -70,6 +65,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                   icon: Icon(
                     _showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -79,7 +75,7 @@ class _SignupPageState extends State<SignupPage> {
                 controller: cfmPasswordController,
                 prefixIcon: const Icon(
                   Icons.lock,
-                  color: Color.fromARGB(255, 97, 97, 97),
+                  color: Colors.white,
                 ),
                 obstruct: !_showPassword,
                 suffixIconButton: IconButton(
@@ -90,6 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                   },
                   icon: Icon(
                     _showPassword ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -114,14 +111,12 @@ class _SignupPageState extends State<SignupPage> {
                     "Already a member? ",
                     style: TextStyle(color: Colors.white),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, "/login");
-                      },
-                      child: const Text(
-                        "Login",
-                        style: hyperLinkTextTheme,
-                      ))
+                  customTextButton(
+                    onPress: () {
+                      Navigator.pushReplacementNamed(context, "/login");
+                    },
+                    text: "Login",
+                  )
                 ],
               ),
             ],
