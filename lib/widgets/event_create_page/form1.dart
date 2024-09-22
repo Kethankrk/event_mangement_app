@@ -123,10 +123,27 @@ class EventDetailsForm extends StatelessWidget {
           EventFormDataProvider obj = context.watch<EventFormDataProvider>();
           return Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Ticket(
-              title: obj.tickets[index].title,
-              price: obj.tickets[index].price,
-              limit: obj.tickets[index].limit,
+            child: Stack(
+              children: [
+                Ticket(
+                  title: obj.tickets[index].title,
+                  price: obj.tickets[index].price,
+                  limit: obj.tickets[index].limit,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.delete),
+                    ),
+                  ],
+                )
+              ],
             ),
           );
         }),
