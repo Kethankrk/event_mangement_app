@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planit/utils/theme.dart';
 
 AppBar hompageAppBar = AppBar(
-    backgroundColor: const Color.fromARGB(255, 41, 41, 41),
+    backgroundColor: CustomColors.dim,
     titleSpacing: 40,
     toolbarHeight: 90,
     shape: const RoundedRectangleBorder(
