@@ -192,12 +192,10 @@ class DisplaySmall extends StatelessWidget {
 
 class ErrorText extends StatelessWidget {
   final String text;
-  final AlignmentGeometry? alignment;
 
   const ErrorText({
     super.key,
     required this.text,
-    this.alignment,
   });
   @override
   Widget build(BuildContext context) {
@@ -205,6 +203,32 @@ class ErrorText extends StatelessWidget {
       text,
       style: const TextStyle(
         color: Colors.red,
+      ),
+    );
+  }
+}
+
+class CustomText extends StatelessWidget {
+  final String text;
+  final double? size;
+  final Color? color;
+  final FontWeight? weight;
+
+  const CustomText({
+    super.key,
+    required this.text,
+    this.size,
+    this.color = Colors.white,
+    this.weight,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: size,
+        fontWeight: weight,
       ),
     );
   }

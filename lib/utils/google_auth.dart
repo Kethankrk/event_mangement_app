@@ -15,5 +15,6 @@ class GoogleAuth {
         backgroundColor: Colors.redAccent,
       );
     }
+    return null;
   }
 }
