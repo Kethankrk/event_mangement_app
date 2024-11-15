@@ -12,6 +12,8 @@ class CustomInputField extends StatelessWidget {
   final int? maxLines;
   final int? minLines;
   final String? errorText;
+  final Color borderColor;
+  final Color? backgroudColor;
   const CustomInputField({
     super.key,
     this.label,
@@ -24,6 +26,8 @@ class CustomInputField extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.errorText,
+    this.borderColor = Colors.white,
+    this.backgroudColor,
   });
 
   @override
@@ -37,6 +41,8 @@ class CustomInputField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       decoration: InputDecoration(
+        fillColor: backgroudColor,
+        filled: backgroudColor != null ? true : false,
         label: label != null
             ? Text(
                 label!,
@@ -49,11 +55,11 @@ class CustomInputField extends StatelessWidget {
         floatingLabelStyle: const TextStyle(color: Colors.white),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: borderColor),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: borderColor),
         ),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon ?? suffixIconButton,
