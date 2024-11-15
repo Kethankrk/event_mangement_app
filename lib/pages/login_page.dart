@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:planit/utils/google_auth.dart';
 import 'package:planit/utils/theme.dart';
@@ -5,6 +7,7 @@ import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,8 +25,22 @@ class _LoginPageState extends State<LoginPage> {
     Navigator.pushNamed(context, '/');
   }
 
-  void handleGoogleSignIn() {
-    GoogleAuth().signInWithGoogle();
+  void handleGoogleSignIn() async {
+    try {
+      final accessToken = await GoogleAuth().signInWithGoogle();
+      final res = await http.post(
+        Uri.parse("http://192.168.29.20:8000/api/auth/google-auth/"),
+        headers: {'Content-type': 'application/json'},
+        body: jsonEncode({'token': accessToken}),
+      );
+
+      if (res.statusCode == 200) {
+        final jsonData = jsonDecode(res.body);
+        print(jsonData['response']['token']);
+      }
+    } catch (e) {
+      print("Django app error");
+    }
   }
 
   @override

@@ -3,13 +3,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleAuth {
-  Future<void> signInWithGoogle() async {
+  Future<String?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? user = await GoogleSignIn().signIn();
-      final email = user!.email;
-      final profile = user.photoUrl;
-
-      print("Email: $email, profiel pic: $profile");
+      final GoogleSignInAuthentication googleAuth = await user!.authentication;
+      return googleAuth.accessToken;
     } catch (e) {
       print("Unable to sigin");
       Fluttertoast.showToast(
@@ -17,5 +15,6 @@ class GoogleAuth {
         backgroundColor: Colors.redAccent,
       );
     }
+    return null;
   }
 }
