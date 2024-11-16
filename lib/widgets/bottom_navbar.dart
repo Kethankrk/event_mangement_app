@@ -25,8 +25,7 @@ class BottomNavbar extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 context.read<NavbarProvider>().setActiveIndex(index);
-                Navigator.pop(context);
-                Navigator.pushNamed(context, navItems[index].path);
+                Navigator.pushReplacementNamed(context, navItems[index].path);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
