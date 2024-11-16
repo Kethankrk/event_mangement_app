@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:planit/utils/request.dart';
+import 'package:planit/serializers/event.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
@@ -6,9 +8,23 @@ import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/homepage/appbar.dart';
 import 'package:planit/widgets/homepage/event_card.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  const Homepage({super.key});
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
   final TextEditingController searchText = TextEditingController();
-  Homepage({super.key});
+  List<EventResponse> eventData = [];
+
+  @override
+  void initState() {
+    fetchEventData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
@@ -30,12 +46,14 @@ class Homepage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            const EventCard(
-              title: "Techcathlon 2k24",
-              location: "KMCT Kozhikode",
-              datetime: "05 Sep 2024, 10 AM",
-              imageUrl: "https://img.com/",
-            ),
+            if (eventData.isNotEmpty)
+              EventCard(
+                title: eventData[0].title,
+                location: eventData[0].location,
+                datetime: eventData[0].start.toString(),
+                imageUrl: eventData[0].heroImage,
+                onPress: () {},
+              ),
             const SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,19 +64,23 @@ class Homepage extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              height: 150,
+              height: 220,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 2,
+                  itemCount: eventData.length,
                   itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    final data = eventData[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: EventCard(
-                        title: "Techcathlon 2k24",
-                        location: "KMCT Kozhikode",
-                        datetime: "05 Sep 2024, 10 AM",
-                        imageUrl: "https://img.com/",
-                        width: 300,
+                        title: data.title,
+                        location: data.location,
+                        datetime: "${data.start}",
+                        imageUrl: data.heroImage,
+                        onPress: () {
+                          Navigator.pushNamed(context, '/event');
+                        },
+                        width: 350,
                       ),
                     );
                   }),
@@ -67,5 +89,17 @@ class Homepage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> fetchEventData() async {
+    final response = await getHelper("/api/event/");
+    if (response == null) return;
+    if (response.statusCode == 200) {
+      final EventMainResponse res =
+          EventMainResponse.fromRawJson(response.body);
+      setState(() {
+        eventData = res.response;
+      });
+    }
   }
 }

@@ -18,7 +18,7 @@ class BottomNavbar extends StatelessWidget {
     return BottomAppBar(
       notchMargin: 0,
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
-      color: const Color(0xff28272A),
+      color: CustomColors.dim,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(navItems.length, (index) {
