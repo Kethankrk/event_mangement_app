@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'PlanIt',
       initialRoute: '/login',
       routes: {
-        '/': (context) => Homepage(),
+        '/': (context) => const Homepage(),
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignupPage(),
         '/verify': (context) => const EmailVerificationPage(),
