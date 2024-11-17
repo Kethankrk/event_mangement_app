@@ -4,6 +4,7 @@ import 'package:planit/pages/event_create_page.dart';
 import 'package:planit/pages/event_page.dart';
 import 'package:planit/pages/home_page.dart';
 import 'package:planit/pages/login_page.dart';
+import 'package:planit/pages/my_events_page.dart';
 import 'package:planit/pages/signup_page.dart';
 import 'package:planit/providers/navbar_provider.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignupPage(),
         '/verify': (context) => const EmailVerificationPage(),
         '/event': (context) => const EventPage(),
+        '/my-events': (context) => const MyEventsPage(),
         '/event-create': (context) => const EventCreatePage()
       },
     );
