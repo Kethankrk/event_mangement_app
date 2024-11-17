@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
-import 'package:planit/widgets/homepage/event_card.dart';
 import 'package:planit/widgets/my_events_page/my_events_section.dart';
 import 'package:planit/widgets/my_events_page/participate_section.dart';
 
