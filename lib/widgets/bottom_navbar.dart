@@ -18,15 +18,14 @@ class BottomNavbar extends StatelessWidget {
     return BottomAppBar(
       notchMargin: 0,
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
-      color: const Color(0xff28272A),
+      color: CustomColors.dim,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(navItems.length, (index) {
             return GestureDetector(
               onTap: () {
                 context.read<NavbarProvider>().setActiveIndex(index);
-                Navigator.pop(context);
-                Navigator.pushNamed(context, navItems[index].path);
+                Navigator.pushReplacementNamed(context, navItems[index].path);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
