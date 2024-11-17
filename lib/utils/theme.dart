@@ -233,3 +233,7 @@ class CustomText extends StatelessWidget {
     );
   }
 }
+
+class CustomColors {
+  static const Color dim = Color(0xff171717);
+}
