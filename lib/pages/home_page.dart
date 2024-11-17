@@ -8,7 +8,7 @@ import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/homepage/appbar.dart';
 import 'package:planit/widgets/homepage/event_card.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   final TextEditingController searchText = TextEditingController();
   Homepage({super.key});
   @override
@@ -54,7 +54,6 @@ class _HomepageState extends State<Homepage> {
                 imageUrl: eventData[0].heroImage,
                 onPress: () {},
               ),
-
             const SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
