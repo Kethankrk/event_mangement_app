@@ -2,13 +2,23 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/material.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
+import 'package:planit/widgets/homepage/appbar.dart';
 
-class CallForHelpPage extends StatelessWidget {
+class CallForHelpPage extends StatefulWidget {
   const CallForHelpPage({super.key});
+
+  @override
+  State<CallForHelpPage> createState() => _CallForHelpPageState();
+}
+
+class _CallForHelpPageState extends State<CallForHelpPage> {
+  int active = 1;
 
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      backgroundColor: Colors.black,
+      appbar: hompageAppBar,
       child: Column(
         children: [
           CustomSlidingSegmentedControl<int>(
@@ -41,8 +51,16 @@ class CallForHelpPage extends StatelessWidget {
             ),
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInToLinear,
-            onValueChanged: (v) {},
+            onValueChanged: (v) {
+              setState(() {
+                active = v;
+              });
+            },
           ),
+          const SizedBox(height: 20),
+          active == 1
+              ? const CustomText(text: "Call for volunteers page")
+              : const CustomText(text: "Call for speakers page")
         ],
       ),
     );
