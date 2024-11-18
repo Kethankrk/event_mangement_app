@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/homepage/event_card.dart';
 
 class ParticipateSection extends StatelessWidget {
@@ -8,11 +7,9 @@ class ParticipateSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
-          const CustomText(text: "My events page"),
-          for (var i = 0; i < 5; i++)
+          for (var i = 0; i < 4; i++)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: EventCard(

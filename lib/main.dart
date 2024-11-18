@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planit/pages/call_for_help_page.dart';
 import 'package:planit/pages/email_verification_page.dart';
 import 'package:planit/pages/event_create_page.dart';
 import 'package:planit/pages/event_page.dart';
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         '/verify': (context) => const EmailVerificationPage(),
         '/event': (context) => const EventPage(),
         '/my-events': (context) => const MyEventsPage(),
-        '/event-create': (context) => const EventCreatePage()
+        '/event-create': (context) => const EventCreatePage(),
+        '/call-help': (context) => const CallForHelpPage(),
       },
     );
   }

@@ -8,7 +8,8 @@ class BottomNavbar extends StatelessWidget {
 
   static const List<NavButton> navItems = [
     NavButton(icon: Icons.home, name: "Home", path: "/"),
-    NavButton(icon: Icons.event, name: "My Events", path: "/my-events"),
+    NavButton(icon: Icons.event, name: "Events", path: "/my-events"),
+    NavButton(icon: Icons.call, name: "EventHub", path: "/call-help"),
     NavButton(icon: Icons.airplane_ticket, name: "Tickets", path: "/ticket"),
     NavButton(icon: Icons.person_2_rounded, name: "Profile", path: "/login"),
   ];

@@ -3,38 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/homepage/appbar.dart';
-import 'package:planit/widgets/my_events_page/my_events_section.dart';
-import 'package:planit/widgets/my_events_page/participate_section.dart';
 
-class MyEventsPage extends StatefulWidget {
-  const MyEventsPage({super.key});
+class CallForHelpPage extends StatefulWidget {
+  const CallForHelpPage({super.key});
 
   @override
-  State<MyEventsPage> createState() => _MyEventsPageState();
+  State<CallForHelpPage> createState() => _CallForHelpPageState();
 }
 
-class _MyEventsPageState extends State<MyEventsPage> {
+class _CallForHelpPageState extends State<CallForHelpPage> {
   int active = 1;
 
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
       backgroundColor: Colors.black,
-      appbar: AppBar(
-        backgroundColor: Colors.black,
-        toolbarHeight: 90,
-        automaticallyImplyLeading: false,
-        leading: hompageAppBar,
-        leadingWidth: double.infinity,
-      ),
+      appbar: hompageAppBar,
       child: Column(
         children: [
           CustomSlidingSegmentedControl<int>(
             isStretch: true,
             initialValue: 1,
             children: const {
-              1: CustomText(text: "Participating event"),
-              2: CustomText(text: "My events"),
+              1: CustomText(
+                text: "Call for Volunteers",
+              ),
+              2: CustomText(text: "Call for Speakers"),
             },
             decoration: BoxDecoration(
               color: Colors.black,
@@ -65,11 +59,8 @@ class _MyEventsPageState extends State<MyEventsPage> {
           ),
           const SizedBox(height: 20),
           active == 1
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height * .56,
-                  child: const ParticipateSection(),
-                )
-              : const MyEventsSection()
+              ? const CustomText(text: "Call for volunteers page")
+              : const CustomText(text: "Call for speakers page")
         ],
       ),
     );
