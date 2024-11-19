@@ -20,7 +20,7 @@ class BaseLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: navbar ? const BottomNavbar() : null,
+      bottomNavigationBar: navbar ? BottomNavbar() : null,
       appBar: appbar,
       backgroundColor: Colors.black,
       body: Container(
