@@ -15,31 +15,21 @@ class MyEventsPage extends StatefulWidget {
 class _MyEventsPageState extends State<MyEventsPage> {
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      backgroundColor: Colors.black,
-      appbar: AppBar(
-        backgroundColor: Colors.black,
-        toolbarHeight: 90,
-        automaticallyImplyLeading: false,
-        leading: hompageAppBar,
-        leadingWidth: double.infinity,
-      ),
-      child: FTabs(
-        initialIndex: 0,
-        tabs: const [
-          FTabEntry(
-            label: Text('Participating events'),
-            content: Expanded(
-              child: ParticipateSection(),
-            ),
+    return FTabs(
+      initialIndex: 0,
+      tabs: const [
+        FTabEntry(
+          label: Text('Participating events'),
+          content: Expanded(
+            child: ParticipateSection(),
           ),
-          FTabEntry(
-            label: Text('My events'),
-            content: MyEventsSection(),
-          ),
-        ],
-        onPress: (index) {},
-      ),
+        ),
+        FTabEntry(
+          label: Text('My events'),
+          content: MyEventsSection(),
+        ),
+      ],
+      onPress: (index) {},
     );
   }
 }

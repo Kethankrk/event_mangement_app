@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/providers/navbar_provider.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavbar extends StatelessWidget {
   BottomNavbar({super.key});
 
-  final List<String> _navRoutes = ["/", "/my-events", "/call-help", "/login"];
+  final List<String> _navRoutes = ["/", "/my-events", "/eventhub", "/login"];
 
   final List<FBottomNavigationBarItem> _navItems = [
     FBottomNavigationBarItem(
@@ -33,7 +34,7 @@ class BottomNavbar extends StatelessWidget {
       index: context.watch<NavbarProvider>().acitveIndex,
       onChange: (index) => {
         context.read<NavbarProvider>().setActiveIndex(index),
-        Navigator.pushReplacementNamed(context, _navRoutes[index]),
+        context.go(_navRoutes[index]),
       },
       children: _navItems,
     );

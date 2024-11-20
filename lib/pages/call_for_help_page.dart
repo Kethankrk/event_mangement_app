@@ -14,25 +14,21 @@ class CallForHelpPage extends StatefulWidget {
 class _CallForHelpPageState extends State<CallForHelpPage> {
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      backgroundColor: Colors.black,
-      appbar: hompageAppBar,
-      child: FTabs(
-        initialIndex: 0,
-        tabs: [
-          FTabEntry(
-              label: const Text('Participating events'),
-              content: SizedBox(
-                height: MediaQuery.of(context).size.height * .56,
-                child: const CustomText(text: "Call for volunteers page"),
-              )),
-          const FTabEntry(
-            label: Text('My events'),
-            content: CustomText(text: "Call for speakers page"),
-          ),
-        ],
-        onPress: (index) {},
-      ),
+    return FTabs(
+      initialIndex: 0,
+      tabs: [
+        FTabEntry(
+            label: const Text('Participating events'),
+            content: SizedBox(
+              height: MediaQuery.of(context).size.height * .56,
+              child: const CustomText(text: "Call for volunteers page"),
+            )),
+        const FTabEntry(
+          label: Text('My events'),
+          content: CustomText(text: "Call for speakers page"),
+        ),
+      ],
+      onPress: (index) {},
     );
   }
 }

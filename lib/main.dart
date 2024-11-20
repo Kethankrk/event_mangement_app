@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/theme.dart';
-import 'package:planit/pages/call_for_help_page.dart';
-import 'package:planit/pages/email_verification_page.dart';
-import 'package:planit/pages/event_create_page.dart';
-import 'package:planit/pages/event_page.dart';
-import 'package:planit/pages/home_page.dart';
-import 'package:planit/pages/login_page.dart';
-import 'package:planit/pages/my_events_page.dart';
-import 'package:planit/pages/signup_page.dart';
 import 'package:planit/providers/navbar_provider.dart';
+import 'package:planit/utils/routes.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,23 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       builder: (context, child) => FTheme(
         data: FThemes.zinc.dark,
         child: child!,
       ),
       title: 'PlanIt',
-      initialRoute: '/login',
-      routes: {
-        '/': (context) => Homepage(),
-        '/login': (context) => const LoginPage(),
-        '/signup': (context) => const SignupPage(),
-        '/verify': (context) => const EmailVerificationPage(),
-        '/event': (context) => const EventPage(),
-        '/my-events': (context) => const MyEventsPage(),
-        '/event-create': (context) => const EventCreatePage(),
-        '/call-help': (context) => const CallForHelpPage(),
-      },
+      routerConfig: customGoRouter,
     );
   }
 }
