@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/utils/request.dart';
 import 'package:planit/serializers/event.dart';
 import 'package:planit/utils/theme.dart';
@@ -27,65 +28,61 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseLayout(
-      appbar: hompageAppBar,
-      backgroundColor: Colors.black,
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            CustomInputField(
-              controller: searchText,
-              borderColor: Colors.transparent,
-              backgroudColor: CustomColors.dim,
-              hintText: "Search an event or venue",
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          CustomInputField(
+            controller: searchText,
+            borderColor: Colors.transparent,
+            backgroudColor: CustomColors.dim,
+            hintText: "Search an event or venue",
+            prefixIcon: const Icon(
+              Icons.search,
+              color: Colors.white,
             ),
-            const SizedBox(height: 40),
-            if (eventData.isNotEmpty)
-              EventCard(
-                title: eventData[0].title,
-                location: eventData[0].location,
-                datetime: eventData[0].start.toString(),
-                imageUrl: eventData[0].heroImage,
-                onPress: () {},
-              ),
-            const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const DisplaySmall(text: "Trending"),
-                customTextButton(text: "See All", onPress: () {})
-              ],
+          ),
+          const SizedBox(height: 40),
+          if (eventData.isNotEmpty)
+            EventCard(
+              title: eventData[0].title,
+              location: eventData[0].location,
+              datetime: eventData[0].start.toString(),
+              imageUrl: eventData[0].heroImage,
+              onPress: () {},
             ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 220,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: eventData.length,
-                  itemBuilder: (context, index) {
-                    final data = eventData[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: EventCard(
-                        title: data.title,
-                        location: data.location,
-                        datetime: "${data.start}",
-                        imageUrl: data.heroImage,
-                        onPress: () {
-                          Navigator.pushNamed(context, '/event');
-                        },
-                        width: 350,
-                      ),
-                    );
-                  }),
-            ),
-          ],
-        ),
+          const SizedBox(height: 40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const DisplaySmall(text: "Trending"),
+              customTextButton(text: "See All", onPress: () {})
+            ],
+          ),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 220,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: eventData.length,
+                itemBuilder: (context, index) {
+                  final data = eventData[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: EventCard(
+                      title: data.title,
+                      location: data.location,
+                      datetime: "${data.start}",
+                      imageUrl: data.heroImage,
+                      onPress: () {
+                        context.go('/event');
+                      },
+                      width: 350,
+                    ),
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }

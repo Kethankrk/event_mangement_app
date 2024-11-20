@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:planit/providers/navbar_provider.dart';
 import 'package:planit/utils/google_auth.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
@@ -8,6 +10,7 @@ import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -22,7 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   bool _showPassword = false;
 
   void handleSignIn() {
-    Navigator.pushNamed(context, '/');
+    context.read<NavbarProvider>().setActiveIndex(0);
+    context.go("/");
   }
 
   void handleGoogleSignIn() async {
@@ -121,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   customTextButton(
                     onPress: () {
-                      Navigator.pushReplacementNamed(context, "/signup");
+                      context.go("/signup");
                     },
                     text: "Register now",
                   ),

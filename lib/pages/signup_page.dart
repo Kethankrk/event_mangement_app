@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
@@ -19,7 +20,7 @@ class _SignupPageState extends State<SignupPage> {
   bool _showPassword = false;
 
   void _handleSignup() {
-    Navigator.pushNamed(context, "/verify");
+    // Navigator.pushNamed(context, "/verify");
   }
 
   @override
@@ -114,7 +115,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   customTextButton(
                     onPress: () {
-                      Navigator.pushReplacementNamed(context, "/login");
+                      context.go("/login");
                     },
                     text: "Login",
                   )
