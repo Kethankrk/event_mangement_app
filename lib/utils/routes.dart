@@ -19,49 +19,55 @@ final customGoRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   routes: [
     StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return BaseLayout(
-            appbar: hompageAppBar,
-            backgroundColor: Colors.black,
-            child: navigationShell,
-          );
-        },
-        branches: [
-          StatefulShellBranch(
-            navigatorKey: _childNavkey1,
-            routes: [
-              GoRoute(
-                  name: "home",
-                  path: '/',
-                  builder: (context, state) => Homepage(),
-                  routes: [
-                    GoRoute(
-                      name: "myevents",
-                      path: '/my-events',
-                      builder: (context, state) => const MyEventsPage(),
-                    ),
-                    GoRoute(
-                      name: "eventhub",
-                      path: '/eventhub',
-                      builder: (context, state) => const CallForHelpPage(),
-                    ),
-                    GoRoute(
-                      name: "event-create",
-                      path: '/event-create',
-                      builder: (context, state) => const EventCreatePage(),
-                    ),
-                  ]),
-            ],
-          )
-        ]),
-    StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return BaseLayout(
-          navbar: false,
-          child: navigationShell,
-        );
+        switch (navigationShell.currentIndex) {
+          case 0:
+            return BaseLayout(
+              appbar: hompageAppBar,
+              backgroundColor: Colors.black,
+              child: navigationShell,
+            );
+          case 1:
+            return BaseLayout(
+              navbar: false,
+              child: navigationShell,
+            );
+          default:
+            return BaseLayout(
+              navbar: false,
+              padding: 0,
+              child: navigationShell,
+            );
+        }
       },
       branches: [
+        StatefulShellBranch(
+          navigatorKey: _childNavkey1,
+          routes: [
+            GoRoute(
+              name: "home",
+              path: '/',
+              builder: (context, state) => Homepage(),
+              routes: [
+                GoRoute(
+                  name: "myevents",
+                  path: '/my-events',
+                  builder: (context, state) => const MyEventsPage(),
+                ),
+                GoRoute(
+                  name: "eventhub",
+                  path: '/eventhub',
+                  builder: (context, state) => const CallForHelpPage(),
+                ),
+                GoRoute(
+                  name: "event-create",
+                  path: '/event-create',
+                  builder: (context, state) => const EventCreatePage(),
+                ),
+              ],
+            ),
+          ],
+        ),
         StatefulShellBranch(
           navigatorKey: _childNavkey2,
           routes: [
@@ -76,29 +82,15 @@ final customGoRouter = GoRouter(
               builder: (context, state) => const SignupPage(),
             ),
           ],
-        )
+        ),
+        StatefulShellBranch(navigatorKey: _childNavkey3, routes: [
+          GoRoute(
+            name: "event",
+            path: '/event',
+            builder: (context, state) => const EventPage(),
+          ),
+        ])
       ],
     ),
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return BaseLayout(
-          navbar: false,
-          padding: 0,
-          child: navigationShell,
-        );
-      },
-      branches: [
-        StatefulShellBranch(
-          navigatorKey: _childNavkey3,
-          routes: [
-            GoRoute(
-              name: "event",
-              path: '/event',
-              builder: (context, state) => const EventPage(),
-            ),
-          ],
-        )
-      ],
-    )
   ],
 );

@@ -1,19 +1,24 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 class BackArrow extends StatelessWidget {
   const BackArrow({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(radius: 30,backgroundColor: Colors.grey.withOpacity(0.7),
+    return CircleAvatar(
+      radius: 30,
+      backgroundColor: Colors.grey.withOpacity(0.7),
       child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,size: 20,
-                          ),
-                          onPressed: () {},
-                        ),
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+          size: 20,
+        ),
+        onPressed: () {
+          context.go("/");
+        },
+      ),
     );
   }
 }
