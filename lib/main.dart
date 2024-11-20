@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/theme.dart';
 import 'package:planit/pages/call_for_help_page.dart';
 import 'package:planit/pages/email_verification_page.dart';
 import 'package:planit/pages/event_create_page.dart';
@@ -23,6 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) => FTheme(
+        data: FThemes.zinc.dark,
+        child: child!,
+      ),
       title: 'PlanIt',
       initialRoute: '/login',
       routes: {
