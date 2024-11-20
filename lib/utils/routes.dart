@@ -13,7 +13,6 @@ import 'package:planit/widgets/homepage/appbar.dart';
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _childNavkey1 = GlobalKey<NavigatorState>();
 final _childNavkey2 = GlobalKey<NavigatorState>();
-final _childNavkey3 = GlobalKey<NavigatorState>();
 
 final customGoRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -22,6 +21,13 @@ final customGoRouter = GoRouter(
       builder: (context, state, navigationShell) {
         switch (navigationShell.currentIndex) {
           case 0:
+            if (state.uri.toString() == "/event") {
+              return BaseLayout(
+                navbar: false,
+                padding: 0,
+                child: navigationShell,
+              );
+            }
             return BaseLayout(
               appbar: hompageAppBar,
               backgroundColor: Colors.black,
@@ -34,8 +40,6 @@ final customGoRouter = GoRouter(
             );
           default:
             return BaseLayout(
-              navbar: false,
-              padding: 0,
               child: navigationShell,
             );
         }
@@ -64,6 +68,11 @@ final customGoRouter = GoRouter(
                   path: '/event-create',
                   builder: (context, state) => const EventCreatePage(),
                 ),
+                GoRoute(
+                  name: "event",
+                  path: '/event',
+                  builder: (context, state) => const EventPage(),
+                ),
               ],
             ),
           ],
@@ -83,13 +92,6 @@ final customGoRouter = GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(navigatorKey: _childNavkey3, routes: [
-          GoRoute(
-            name: "event",
-            path: '/event',
-            builder: (context, state) => const EventPage(),
-          ),
-        ])
       ],
     ),
   ],
