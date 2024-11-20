@@ -26,14 +26,14 @@ class _MyEventsPageState extends State<MyEventsPage> {
       ),
       child: FTabs(
         initialIndex: 0,
-        tabs: [
+        tabs: const [
           FTabEntry(
-              label: const Text('Participating events'),
-              content: SizedBox(
-                height: MediaQuery.of(context).size.height * .56,
-                child: const ParticipateSection(),
-              )),
-          const FTabEntry(
+            label: Text('Participating events'),
+            content: Expanded(
+              child: ParticipateSection(),
+            ),
+          ),
+          FTabEntry(
             label: Text('My events'),
             content: MyEventsSection(),
           ),

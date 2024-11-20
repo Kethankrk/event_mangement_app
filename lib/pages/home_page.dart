@@ -29,7 +29,6 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return BaseLayout(
       appbar: hompageAppBar,
-      padding: 30,
       backgroundColor: Colors.black,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

@@ -6,22 +6,20 @@ class ParticipateSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (var i = 0; i < 4; i++)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: EventCard(
-                  title: "Event Name",
-                  location: "Kozhikode, Kerala",
-                  datetime: "06 Nov 2024",
-                  imageUrl:
-                      "https://image.freepik.com/free-psd/business-conference-concept-banner-template_23-2148640910.jpg",
-                  onPress: () {}),
-            )
-        ],
-      ),
+    return ListView.builder(
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: EventCard(
+              title: "Event Name",
+              location: "Kozhikode, Kerala",
+              datetime: "06 Nov 2024",
+              imageUrl:
+                  "https://image.freepik.com/free-psd/business-conference-concept-banner-template_23-2148640910.jpg",
+              onPress: () {}),
+        );
+      },
     );
   }
 }

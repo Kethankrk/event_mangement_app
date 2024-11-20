@@ -12,7 +12,7 @@ class BaseLayout extends StatelessWidget {
     super.key,
     required this.child,
     this.navbar = true,
-    this.padding = 40.0,
+    this.padding = 20.0,
     this.appbar,
     this.backgroundColor = CustomColors.dim,
   });

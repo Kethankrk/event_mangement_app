@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:planit/providers/navbar_provider.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavbar extends StatelessWidget {
   BottomNavbar({super.key});
@@ -28,8 +30,9 @@ class BottomNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FBottomNavigationBar(
-      index: 0,
+      index: context.watch<NavbarProvider>().acitveIndex,
       onChange: (index) => {
+        context.read<NavbarProvider>().setActiveIndex(index),
         Navigator.pushReplacementNamed(context, _navRoutes[index]),
       },
       children: _navItems,

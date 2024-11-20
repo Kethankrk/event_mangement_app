@@ -42,10 +42,15 @@ class EventCard extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () {},
-                      style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Colors.blue),
+                      iconSize: 15,
+                      constraints: const BoxConstraints(
+                        maxHeight: 32,
+                        maxWidth: 32,
                       ),
-                      hoverColor: Colors.blue,
+                      style: const ButtonStyle(
+                        backgroundColor:
+                            WidgetStatePropertyAll(Colors.lightBlue),
+                      ),
                       icon: const Icon(
                         Icons.bookmark,
                         color: Colors.black,

@@ -25,6 +25,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      padding: 40,
       navbar: false,
       child: Center(
         child: SingleChildScrollView(
