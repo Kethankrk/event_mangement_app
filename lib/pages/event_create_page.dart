@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planit/providers/event_create_provider.dart';
 import 'package:planit/utils/theme.dart';
-import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_stepper.dart';
 import 'package:planit/widgets/event_create_page/form1.dart';
@@ -65,8 +64,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => EventFormDataProvider(),
-      child: BaseLayout(
-          child: SingleChildScrollView(
+      child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
@@ -91,7 +89,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
             )
           ],
         ),
-      )),
+      ),
     );
   }
 }

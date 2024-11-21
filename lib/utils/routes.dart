@@ -51,27 +51,31 @@ final customGoRouter = GoRouter(
             GoRoute(
               name: "home",
               path: '/',
-              builder: (context, state) => Homepage(),
+              pageBuilder: (context, state) => noTransitionBuilder(
+                context: context,
+                state: state,
+                child: Homepage(),
+              ),
               routes: [
-                GoRoute(
+                noTransitionGoRoute(
                   name: "myevents",
-                  path: '/my-events',
-                  builder: (context, state) => const MyEventsPage(),
+                  path: "/my-events",
+                  child: const MyEventsPage(),
                 ),
-                GoRoute(
+                noTransitionGoRoute(
                   name: "eventhub",
-                  path: '/eventhub',
-                  builder: (context, state) => const CallForHelpPage(),
+                  path: "/eventhub",
+                  child: const CallForHelpPage(),
                 ),
-                GoRoute(
+                noTransitionGoRoute(
                   name: "event-create",
-                  path: '/event-create',
-                  builder: (context, state) => const EventCreatePage(),
+                  path: "/event-create",
+                  child: const EventCreatePage(),
                 ),
-                GoRoute(
+                noTransitionGoRoute(
                   name: "event",
-                  path: '/event',
-                  builder: (context, state) => const EventPage(),
+                  path: "/event",
+                  child: const EventPage(),
                 ),
               ],
             ),
@@ -96,3 +100,29 @@ final customGoRouter = GoRouter(
     ),
   ],
 );
+
+CustomTransitionPage noTransitionBuilder<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return NoTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+  );
+}
+
+GoRoute noTransitionGoRoute({
+  required String name,
+  required String path,
+  required Widget child,
+}) {
+  return GoRoute(
+    name: name,
+    path: path,
+    pageBuilder: (context, state) => NoTransitionPage<void>(
+      key: state.pageKey,
+      child: child,
+    ),
+  );
+}

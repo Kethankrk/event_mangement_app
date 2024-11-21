@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/widgets/custom_button.dart';
 
 class MyEventsSection extends StatelessWidget {
@@ -13,7 +14,7 @@ class MyEventsSection extends StatelessWidget {
           child: CustomButton(
             text: "Create new event",
             onPressed: () {
-              Navigator.pushNamed(context, '/event-create');
+              context.go("/event-create");
             },
           ),
         ),
