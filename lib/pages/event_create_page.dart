@@ -4,6 +4,7 @@ import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_stepper.dart';
 import 'package:planit/widgets/event_create_page/form1.dart';
+import 'package:planit/widgets/event_create_page/form2.dart';
 import 'package:provider/provider.dart';
 
 class EventCreatePage extends StatefulWidget {
@@ -32,11 +33,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
       ),
       const CustomStep(
         title: "Date / Locaion",
-        content: DisplayMedium(text: "Date and location"),
-      ),
-      const CustomStep(
-        title: "Guest",
-        content: DisplayMedium(text: "Guest"),
+        content: EventLocationForm(),
       ),
     ];
   }

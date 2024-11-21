@@ -79,6 +79,7 @@ class StandardInputField extends StatelessWidget {
   final int? maxLines;
   final int? minLines;
   final String? errorText;
+  final bool readOnly;
   const StandardInputField({
     super.key,
     required this.label,
@@ -91,6 +92,7 @@ class StandardInputField extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.errorText,
+    this.readOnly = false,
   });
 
   @override
@@ -99,6 +101,7 @@ class StandardInputField extends StatelessWidget {
       children: [
         Align(alignment: Alignment.centerLeft, child: LabelLarge(text: label)),
         TextField(
+          readOnly: readOnly,
           controller: controller,
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14),
