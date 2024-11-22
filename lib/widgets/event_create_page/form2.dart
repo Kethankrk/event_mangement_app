@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:planit/widgets/custom_input.dart';
+import 'package:forui/forui.dart';
+import 'package:planit/providers/event_create_provider.dart';
+import 'package:provider/provider.dart';
 
 class EventLocationForm extends StatefulWidget {
   const EventLocationForm({super.key});
@@ -9,35 +11,65 @@ class EventLocationForm extends StatefulWidget {
 }
 
 class EventLocationFormState extends State<EventLocationForm> {
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController startingDateController = TextEditingController();
-  final TextEditingController startingTimeController = TextEditingController();
-  final TextEditingController endingDateController = TextEditingController();
-  final TextEditingController endingTimeController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController startingDateTimeController =
+      TextEditingController();
+  final TextEditingController endingDateTimeController =
+      TextEditingController();
+  late final EventFormDataProvider eventProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    eventProvider = Provider.of<EventFormDataProvider>(context, listen: false);
+    locationController.text = eventProvider.location ?? "";
+    DateTime? sdt = eventProvider.startingDateTime;
+    DateTime? edt = eventProvider.endingDateTime;
+
+    if (sdt != null) {
+      startingDateTimeController.text =
+          "${sdt.day}/${sdt.month}/${sdt.year} ${sdt.hour.toString().padLeft(2, '0')}:${sdt.minute.toString().padLeft(2, '0')}";
+    }
+    if (edt != null) {
+      endingDateTimeController.text =
+          "${edt.day}/${edt.month}/${edt.year} ${edt.hour.toString().padLeft(2, '0')}:${edt.minute.toString().padLeft(2, '0')}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        StandardInputField(
-          label: "Address",
-          controller: addressController,
-          hintText: "Enter the venue address.",
+        FTextField(
+          controller: locationController,
+          enabled: true,
+          label: const Text('Location'),
+          description: const Text('Enter your venue address'),
+          onChange: (value) => eventProvider.location = value,
+          maxLines: 1,
         ),
         const SizedBox(height: 20),
         Row(
           children: [
             Expanded(
-              child: StandardInputField(
-                label: "starting date",
-                controller: startingDateController,
+              child: FTextField(
+                controller: startingDateTimeController,
+                enabled: true,
+                label: const Text('Starting date and time'),
+                description: const Text('select your event starting time'),
                 readOnly: true,
-                hintText: "Select starting date",
-                suffixIconButton: IconButton(
+                maxLines: 1,
+                suffix: IconButton(
                   onPressed: () {
-                    _selectDate(startingDateController);
+                    _selectDateTime(
+                      callBack: (value) =>
+                          eventProvider.startingDateTime = value,
+                      selectedDatetime: eventProvider.startingDateTime,
+                      controller: startingDateTimeController,
+                    );
                   },
                   icon: const Icon(
-                    Icons.calendar_month,
+                    Icons.calendar_month_rounded,
                     color: Colors.blue,
                   ),
                 ),
@@ -45,58 +77,26 @@ class EventLocationFormState extends State<EventLocationForm> {
             ),
             const SizedBox(width: 20),
             Expanded(
-              child: StandardInputField(
-                label: "starting time",
+              child: FTextField(
+                controller: endingDateTimeController,
+                enabled: true,
+                label: const Text('Ending date and time'),
+                description: const Text('select your event ending time'),
                 readOnly: true,
-                controller: startingTimeController,
-                hintText: "Select starting time",
-                suffixIconButton: IconButton(
-                    onPressed: () {
-                      _selectTime(startingTimeController);
-                    },
-                    icon: const Icon(
-                      Icons.access_time,
-                      color: Colors.blue,
-                    )),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Row(
-          children: [
-            Expanded(
-              child: StandardInputField(
-                label: "ending date",
-                controller: endingDateController,
-                readOnly: true,
-                hintText: "Select ending date",
-                suffixIconButton: IconButton(
+                maxLines: 1,
+                suffix: IconButton(
                   onPressed: () {
-                    _selectDate(endingDateController);
+                    _selectDateTime(
+                      callBack: (value) => eventProvider.endingDateTime = value,
+                      selectedDatetime: eventProvider.endingDateTime,
+                      controller: endingDateTimeController,
+                    );
                   },
                   icon: const Icon(
-                    Icons.calendar_month,
+                    Icons.calendar_month_rounded,
                     color: Colors.blue,
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: StandardInputField(
-                label: "ending time",
-                readOnly: true,
-                controller: endingTimeController,
-                hintText: "Select ending time",
-                suffixIconButton: IconButton(
-                    onPressed: () {
-                      _selectTime(startingTimeController);
-                    },
-                    icon: const Icon(
-                      Icons.access_time,
-                      color: Colors.blue,
-                    )),
               ),
             ),
           ],
@@ -105,28 +105,38 @@ class EventLocationFormState extends State<EventLocationForm> {
     );
   }
 
-  Future<void> _selectDate(TextEditingController controller) async {
+  Future<void> _selectDateTime({
+    required void Function(DateTime value) callBack,
+    required DateTime? selectedDatetime,
+    required TextEditingController controller,
+  }) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
+      initialDate: selectedDatetime,
       firstDate: DateTime(2000),
       lastDate: DateTime(2030),
     );
 
-    if (pickedDate != null) {
-      controller.text =
-          "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-    }
-  }
+    if (!mounted || pickedDate == null) return;
 
-  Future<void> _selectTime(TextEditingController controller) async {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: selectedDatetime != null
+          ? TimeOfDay.fromDateTime(selectedDatetime)
+          : TimeOfDay.now(),
     );
-    if (pickedTime != null) {
-      setState(() {
-        controller.text = pickedTime.format(context);
-      });
-    }
+    if (pickedTime == null) return;
+
+    DateTime newDateTime = DateTime(
+      pickedDate.year,
+      pickedDate.month,
+      pickedDate.day,
+      pickedTime.hour,
+      pickedTime.minute,
+    );
+    callBack(newDateTime);
+    if (!mounted) return;
+    controller.text =
+        "${pickedDate.day}/${pickedDate.month}/${pickedDate.year} ${pickedTime.format(context)}";
   }
 }
