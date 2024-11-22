@@ -44,25 +44,28 @@ class CustomStepper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: List.generate(steps.length, (index) {
-            return Expanded(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: StepperTitle(
-                title: steps[index].title,
-                isActive: index == activeIndex ? true : false,
-              ),
-            ));
-          }),
-        ),
-        const SizedBox(
-          height: 60.0,
-        ),
-        steps[activeIndex].content,
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          Row(
+            children: List.generate(steps.length, (index) {
+              return Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: StepperTitle(
+                  title: steps[index].title,
+                  isActive: index == activeIndex ? true : false,
+                ),
+              ));
+            }),
+          ),
+          const SizedBox(
+            height: 60.0,
+          ),
+          Expanded(
+              child: SingleChildScrollView(child: steps[activeIndex].content))
+        ],
+      ),
     );
   }
 }

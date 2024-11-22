@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:planit/providers/event_create_provider.dart';
-import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_stepper.dart';
 import 'package:planit/widgets/event_create_page/form1.dart';
@@ -16,20 +15,15 @@ class EventCreatePage extends StatefulWidget {
 
 class _EventCreatePageState extends State<EventCreatePage> {
   int activeIndex = 0;
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descrptionController = TextEditingController();
   late final List<CustomStep> steps;
 
   @override
   void initState() {
     super.initState();
     steps = [
-      CustomStep(
+      const CustomStep(
         title: "Detail",
-        content: EventDetailsForm(
-          titleController: titleController,
-          descriptionController: descrptionController,
-        ),
+        content: EventDetailsForm(),
       ),
       const CustomStep(
         title: "Date / Locaion",
@@ -60,32 +54,34 @@ class _EventCreatePageState extends State<EventCreatePage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => EventFormDataProvider(),
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            const TitleMedium(text: "Create an event"),
-            const SizedBox(height: 20.0),
-            CustomStepper(
-              steps: steps,
-              activeIndex: activeIndex,
-            ),
-            const SizedBox(height: 20.0),
-            Row(
-              children: [
-                Expanded(
+      create: (_) => EventFormDataProvider(),
+      builder: (context, child) => Column(
+        children: [
+          CustomStepper(
+            steps: steps,
+            activeIndex: activeIndex,
+          ),
+          const SizedBox(height: 20.0),
+          Row(
+            children: [
+              Expanded(
+                child: CustomButton(
+                    text: activeIndex == 0 ? "Cancel" : "Prev",
+                    onPressed: _handlePrev),
+              ),
+              const SizedBox(width: 20.0),
+              Expanded(
                   child: CustomButton(
-                      text: activeIndex == 0 ? "Cancel" : "Prev",
-                      onPressed: _handlePrev),
-                ),
-                const SizedBox(width: 20.0),
-                Expanded(
-                    child: CustomButton(text: "Next", onPressed: _handleNext)),
-              ],
-            )
-          ],
-        ),
+                      text: "Next",
+                      onPressed: () {
+                        _handleNext();
+                        if (activeIndex == steps.length - 1) {
+                          print(context.read<EventFormDataProvider>().asMap);
+                        }
+                      })),
+            ],
+          )
+        ],
       ),
     );
   }

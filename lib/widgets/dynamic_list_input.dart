@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_input.dart';
 
@@ -45,10 +46,14 @@ class DynamicListInput extends StatelessWidget {
         );
       }),
       const SizedBox(height: 20.0),
-      CustomInputField(
-        controller: controller,
-        hintText: hintText,
-        suffixIconButton: IconButton(
+      FTextField(
+        controller: controller, // TextEditingController
+        enabled: true,
+        description:
+            const Text('Enter requirement for a user to attend your event.'),
+        keyboardType: TextInputType.emailAddress,
+        textCapitalization: TextCapitalization.none,
+        suffix: IconButton(
             color: Colors.blue,
             onPressed: () {
               if (controller.text.isEmpty) return;
@@ -58,7 +63,8 @@ class DynamicListInput extends StatelessWidget {
             icon: const Icon(
               Icons.add_circle_outlined,
             )),
-      )
+        maxLines: 1,
+      ),
     ]);
   }
 }
