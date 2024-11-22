@@ -1,44 +1,59 @@
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:planit/providers/event_create_provider.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/custom_button.dart';
-import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/dynamic_list_input.dart';
 import 'package:planit/widgets/event_create_page/ticket_create_modal.dart';
 import 'package:planit/widgets/ticket_widget.dart';
 import 'package:provider/provider.dart';
 
-class EventDetailsForm extends StatelessWidget {
-  final TextEditingController titleController;
-  final TextEditingController descriptionController;
-  const EventDetailsForm({
-    super.key,
-    required this.titleController,
-    required this.descriptionController,
-  });
+class EventDetailsForm extends StatefulWidget {
+  const EventDetailsForm({super.key});
+
+  @override
+  State<EventDetailsForm> createState() => _EventDetailsFormState();
+}
+
+class _EventDetailsFormState extends State<EventDetailsForm> {
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  @override
+  void initState() {
+    final eventProviderReadOnly =
+        Provider.of<EventFormDataProvider>(context, listen: false);
+    titleController.text = eventProviderReadOnly.title ?? "";
+    descriptionController.text = eventProviderReadOnly.description ?? "";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final eventProvider = Provider.of<EventFormDataProvider>(context);
     return Column(
       children: [
-        StandardInputField(
-          label: "Title",
-          hintText: "Name your event.",
+        FTextField(
           controller: titleController,
+          enabled: true,
+          label: const Text('Title'),
+          description: const Text('Enter your event title'),
+          onChange: (value) => eventProvider.title = value,
+          maxLines: 1,
         ),
         const SizedBox(height: 30.0),
-        StandardInputField(
-          label: "Description",
-          hintText: "Describe your event.",
+        FTextField(
           controller: descriptionController,
-          maxLines: null,
+          enabled: true,
+          label: const Text('Description'),
+          description: const Text('Describe your event'),
+          onChange: (value) => eventProvider.description = value,
           minLines: 5,
         ),
         const SizedBox(height: 30.0),
-        if (context.watch<EventFormDataProvider>().heroImage == null)
+        if (eventProvider.heroImage == null)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 1.0),
             child: DottedBorder(
@@ -55,7 +70,7 @@ class EventDetailsForm extends StatelessWidget {
                       onPressed: () async {
                         XFile? image = await _addImage(context);
                         if (image == null) return;
-                        context.read<EventFormDataProvider>().addImage(image);
+                        eventProvider.heroImage = image;
                       },
                       color: Colors.blue,
                       iconSize: 42.0,
@@ -77,7 +92,7 @@ class EventDetailsForm extends StatelessWidget {
               ),
             ),
           ),
-        if (context.watch<EventFormDataProvider>().heroImage != null)
+        if (eventProvider.heroImage != null)
           SizedBox(
             height: 250.0,
             child: Stack(
@@ -85,8 +100,7 @@ class EventDetailsForm extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.file(
-                    File(
-                        context.watch<EventFormDataProvider>().heroImage!.path),
+                    File(eventProvider.heroImage!.path),
                     width: double.infinity,
                     height: double.infinity,
                     fit: BoxFit.cover,
@@ -99,9 +113,7 @@ class EventDetailsForm extends StatelessWidget {
                       child: CustomButton(
                           text: "Change Image",
                           onPressed: () {
-                            context
-                                .read<EventFormDataProvider>()
-                                .addImage(null);
+                            eventProvider.heroImage = null;
                           })),
                 )
               ],
@@ -111,9 +123,9 @@ class EventDetailsForm extends StatelessWidget {
         const LabelLarge(text: "Attendees requirements"),
         const SizedBox(height: 5.0),
         DynamicListInput(
-          dataList: context.watch<EventFormDataProvider>().req,
-          dataAddFunc: context.read<EventFormDataProvider>().addReq,
-          removeDataFunc: context.read<EventFormDataProvider>().removeReq,
+          dataList: eventProvider.attendeesRequirements,
+          dataAddFunc: eventProvider.addReq,
+          removeDataFunc: eventProvider.removeReq,
           hintText: "Add a requirement.",
         ),
         const SizedBox(height: 30.0),
@@ -173,7 +185,6 @@ class EventDetailsForm extends StatelessWidget {
   }
 
   // ----------------------| methods |---------------------------
-
   Future<XFile?> _addImage(BuildContext context) async {
     return await ImagePicker().pickImage(source: ImageSource.gallery);
   }
