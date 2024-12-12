@@ -27,7 +27,7 @@ class EventFormDataProvider extends ChangeNotifier {
       'description': _description,
       'location': _location,
       'attendeesRequirements': _attendeesRequirements,
-      'heroImage': _heroImage!.path,
+      'heroImage': _heroImage != null ? _heroImage!.path : "/",
       'tickets': _tickets
     };
   }

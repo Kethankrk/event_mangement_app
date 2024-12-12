@@ -4,6 +4,7 @@ import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_stepper.dart';
 import 'package:planit/widgets/event_create_page/form1.dart';
 import 'package:planit/widgets/event_create_page/form2.dart';
+import 'package:planit/widgets/event_create_page/form3.dart';
 import 'package:provider/provider.dart';
 
 class EventCreatePage extends StatefulWidget {
@@ -28,6 +29,10 @@ class _EventCreatePageState extends State<EventCreatePage> {
       const CustomStep(
         title: "Date / Locaion",
         content: EventLocationForm(),
+      ),
+      const CustomStep(
+        title: "Tickets",
+        content: EventTicketCreateForm(),
       ),
     ];
   }
@@ -72,7 +77,7 @@ class _EventCreatePageState extends State<EventCreatePage> {
               const SizedBox(width: 20.0),
               Expanded(
                   child: CustomButton(
-                      text: "Next",
+                      text: activeIndex + 1 == steps.length ? "Submit" : "Next",
                       onPressed: () {
                         _handleNext();
                         if (activeIndex == steps.length - 1) {

@@ -128,58 +128,6 @@ class _EventDetailsFormState extends State<EventDetailsForm> {
           removeDataFunc: eventProvider.removeReq,
           hintText: "Add a requirement.",
         ),
-        const SizedBox(height: 30.0),
-        const LabelLarge(text: "Tickets"),
-        ...List.generate(context.watch<EventFormDataProvider>().tickets.length,
-            (index) {
-          EventFormDataProvider obj = context.watch<EventFormDataProvider>();
-          return Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Stack(
-              children: [
-                Ticket(
-                  title: obj.tickets[index].title,
-                  price: obj.tickets[index].price,
-                  limit: obj.tickets[index].limit,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.edit),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.delete),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
-        }),
-        const SizedBox(height: 10.0),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: customTextButton(
-              text: "+ add ticket",
-              onPress: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (BuildContext ctx) {
-                    return ChangeNotifierProvider.value(
-                      value: Provider.of<EventFormDataProvider>(
-                        context,
-                        listen: false,
-                      ),
-                      child: const TicketCreateModal(),
-                    );
-                  },
-                );
-              }),
-        )
       ],
     );
   }
