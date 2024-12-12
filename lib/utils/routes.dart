@@ -6,6 +6,7 @@ import 'package:planit/pages/event_page.dart';
 import 'package:planit/pages/home_page.dart';
 import 'package:planit/pages/login_page.dart';
 import 'package:planit/pages/my_events_page.dart';
+import 'package:planit/pages/profile_page.dart';
 import 'package:planit/pages/signup_page.dart';
 import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/homepage/appbar.dart';
@@ -76,6 +77,11 @@ final customGoRouter = GoRouter(
                   name: "event",
                   path: "/event",
                   child: const EventPage(),
+                ),
+                noTransitionGoRoute(
+                  name: "profile",
+                  path: "/profile",
+                  child: const ProfilePage(),
                 ),
               ],
             ),
