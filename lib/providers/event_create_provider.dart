@@ -11,6 +11,9 @@ class EventFormDataProvider extends ChangeNotifier {
   final List<TicketData> _tickets = [];
   XFile? _heroImage;
 
+  bool _nextDisabled = true;
+  GlobalKey<FormState>? _currentStageFormKey;
+
   // ----------------------| getters |------------------------
   String? get title => _title;
   String? get description => _description;
@@ -21,12 +24,17 @@ class EventFormDataProvider extends ChangeNotifier {
   XFile? get heroImage => _heroImage;
   List<TicketData> get tickets => _tickets;
 
+  bool get nextDisabled => _nextDisabled;
+  GlobalKey<FormState>? get currentStageFormKey => _currentStageFormKey;
+
   Map<String, dynamic> get asMap {
     return {
       'title': _title,
       'description': _description,
       'location': _location,
-      'attendeesRequirements': _attendeesRequirements,
+      'attendees_req': _attendeesRequirements,
+      'start': _startingDateTime!.toIso8601String(),
+      'end': _endingDateTime!.toIso8601String(),
       'heroImage': _heroImage != null ? _heroImage!.path : "/",
       'tickets': _tickets
     };
@@ -60,6 +68,16 @@ class EventFormDataProvider extends ChangeNotifier {
 
   set heroImage(XFile? image) {
     _heroImage = image;
+    notifyListeners();
+  }
+
+  set nextDisabled(bool val) {
+    _nextDisabled = val;
+    notifyListeners();
+  }
+
+  set currentStateFormKey(GlobalKey<FormState> formKey) {
+    _currentStageFormKey = formKey;
     notifyListeners();
   }
 
