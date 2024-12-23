@@ -12,6 +12,7 @@ import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,8 +43,10 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
       if (res.errorCode == ErrorTypes.emailNotVerified.code) {
+        (await SharedPreferences.getInstance()).setString("email", emailController.text);
         Fluttertoast.showToast(
             msg: res.message, toastLength: Toast.LENGTH_LONG);
+        if(!mounted) return;
         await context.push("/email-verify");
         return;
       }

@@ -94,7 +94,7 @@ class _HomepageState extends State<Homepage> {
   }
 
   Future<void> fetchEventData() async {
-    final response = await getHelper("/api/event/");
+    final response = await secureGetHelper("/api/event/");
     if (response == null) return;
     if (response.statusCode == 200) {
       final EventMainResponse res =

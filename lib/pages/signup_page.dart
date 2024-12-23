@@ -181,6 +181,9 @@ class _SignupPageState extends State<SignupPage> {
           msg: "Signup successful",
           toastLength: Toast.LENGTH_LONG,
         );
+        final store = await SharedPreferences.getInstance();
+        store.setString("email", emailController.text);
+        if(!mounted) return;
         return context.go("/email-verify");
       }
       if (res.errorCode == ErrorTypes.emailAlreadyExists.code) {
