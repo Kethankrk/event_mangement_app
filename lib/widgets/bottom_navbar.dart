@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class BottomNavbar extends StatelessWidget {
   BottomNavbar({super.key});
 
-  final List<String> _navRoutes = ["/", "/my-events", "/eventhub", "/login"];
+  final List<String> _navRoutes = ["/", "/my-events", "/eventhub", "/profile"];
 
   final List<FBottomNavigationBarItem> _navItems = [
     FBottomNavigationBarItem(
