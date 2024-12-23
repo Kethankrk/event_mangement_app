@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:planit/pages/call_for_help_page.dart';
+import 'package:planit/pages/email_verification_page.dart';
 import 'package:planit/pages/event_create_page.dart';
 import 'package:planit/pages/event_page.dart';
 import 'package:planit/pages/home_page.dart';
@@ -93,6 +94,11 @@ final customGoRouter = GoRouter(
               name: "signup",
               path: '/signup',
               builder: (context, state) => const SignupPage(),
+            ),
+            GoRoute(
+              name: "email-verify",
+              path: "/email-verify",
+              builder: (context, state) => const EmailVerificationPage(),
             ),
           ],
         ),

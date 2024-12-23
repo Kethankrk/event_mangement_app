@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
+import 'package:planit/serializers/request.dart';
+import 'package:planit/utils/error_types.dart';
+import 'package:planit/utils/google_auth.dart';
+import 'package:planit/utils/request.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -15,13 +21,10 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController cfmPasswordController = TextEditingController();
   bool _showPassword = false;
-
-  void _handleSignup() {
-    // Navigator.pushNamed(context, "/verify");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +46,19 @@ class _SignupPageState extends State<SignupPage> {
                   child: TitleSmall(text: "Welcome to, \nPlanIt")),
               const SizedBox(height: 50.0),
               CustomInputField(
+                label: "Username",
+                controller: usernameController,
+                prefixIcon: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              CustomInputField(
                 label: "Email",
                 controller: emailController,
                 prefixIcon: const Icon(
-                  Icons.person,
+                  Icons.email_rounded,
                   color: Colors.white,
                 ),
               ),
@@ -103,7 +115,9 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(
                 height: 200.0,
                 child: GoogleAuthOption(
-                  onPress: () {},
+                  onPress: () {
+                    _handleGoogleAuth();
+                  },
                 ),
               ),
               Row(
@@ -126,5 +140,64 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+
+  void _handleGoogleAuth() async {
+    try {
+      await GoogleAuth().signInWithGoogle(context);
+      if(!mounted) return;
+      context.go("/");
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: "Unkown error",
+        toastLength: Toast.LENGTH_LONG,
+        backgroundColor: Colors.red
+      );
+    }
+  }
+
+  void _handleSignup() async {
+    if (passwordController.text != cfmPasswordController.text) {
+      Fluttertoast.showToast(
+        msg: "Passwords do not match",
+        toastLength: Toast.LENGTH_LONG,
+      );
+      return;
+    }
+
+    try {
+      final response = await postHelper("/api/auth/signup/", {
+        'email': emailController.text,
+        'name': usernameController.text,
+        'password': passwordController.text,
+      });
+
+      final res = DjangoResponse.fromRawJson(response.body);
+
+      if (!mounted) return;
+
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+          msg: "Signup successful",
+          toastLength: Toast.LENGTH_LONG,
+        );
+        final store = await SharedPreferences.getInstance();
+        store.setString("email", emailController.text);
+        if(!mounted) return;
+        return context.go("/email-verify");
+      }
+      if (res.errorCode == ErrorTypes.emailAlreadyExists.code) {
+        Fluttertoast.showToast(
+          msg: "Email already exists",
+          toastLength: Toast.LENGTH_LONG,
+        );
+        return context.go("/login");
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: "Unkown error",
+        toastLength: Toast.LENGTH_LONG,
+      );
+    }
   }
 }
