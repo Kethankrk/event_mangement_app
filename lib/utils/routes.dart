@@ -51,7 +51,7 @@ final customGoRouter = GoRouter(
           routes: [
             GoRoute(
               name: "home",
-              path: '/home',
+              path: '/',
               pageBuilder: (context, state) => noTransitionBuilder(
                 context: context,
                 state: state,
@@ -87,7 +87,7 @@ final customGoRouter = GoRouter(
           routes: [
             GoRoute(
               name: "login",
-              path: '/',
+              path: '/login',
               builder: (context, state) => const LoginPage(),
             ),
             GoRoute(

@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:http/http.dart" as http;
+import "package:planit/utils/config.dart";
 
 Future<http.Response?> secureGetHelper(String url) async {
   try {
@@ -15,10 +16,11 @@ Future<http.Response?> secureGetHelper(String url) async {
 }
 
 Future<http.Response> getHelper(String url) async {
-  return await http.get(Uri.parse("http://192.168.29.214:8000$url"));
+  return await http.get(Uri.parse("$apiBaseUrl$url"));
 }
 
 Future<http.Response> postHelper(String url, Map<String, dynamic> body) async {
-  return await http.post(Uri.parse("http://192.168.29.214:8000$url"),
+  print("base url: $apiBaseUrl");
+  return await http.post(Uri.parse("$apiBaseUrl$url"),
       body: jsonEncode(body), headers: {'Content-Type': 'application/json'});
 }
