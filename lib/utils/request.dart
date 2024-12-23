@@ -1,3 +1,5 @@
+import "dart:convert";
+
 import "package:http/http.dart" as http;
 
 Future<http.Response?> getHelper(String url) async {
@@ -11,3 +13,9 @@ Future<http.Response?> getHelper(String url) async {
     return null;
   }
 }
+
+
+Future<http.Response> postHelper(String url, Map<String, dynamic> body) async {
+  return await http.post(Uri.parse("http://192.168.29.214:8000$url"), body: jsonEncode(body), headers: {'Content-Type': 'application/json'}); 
+}
+    

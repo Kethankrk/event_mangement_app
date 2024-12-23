@@ -3,11 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:planit/utils/request.dart';
 import 'package:planit/serializers/event.dart';
 import 'package:planit/utils/theme.dart';
-import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
-import 'package:planit/widgets/homepage/appbar.dart';
 import 'package:planit/widgets/homepage/event_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
   final TextEditingController searchText = TextEditingController();
@@ -22,6 +21,13 @@ class _HomepageState extends State<Homepage> {
 
   @override
   void initState() {
+    () async {
+      final store = await SharedPreferences.getInstance();
+      if(store.getString("token") == null) {
+        if(!mounted) return;
+        context.go("/login");
+      }
+    }();
     fetchEventData();
     super.initState();
   }

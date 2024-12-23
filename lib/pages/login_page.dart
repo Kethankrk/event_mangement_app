@@ -1,16 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:planit/providers/navbar_provider.dart';
+import 'package:planit/serializers/request.dart';
+import 'package:planit/utils/error_types.dart';
 import 'package:planit/utils/google_auth.dart';
+import 'package:planit/utils/request.dart';
 import 'package:planit/utils/theme.dart';
 import 'package:planit/widgets/base_layout.dart';
 import 'package:planit/widgets/custom_button.dart';
 import 'package:planit/widgets/custom_input.dart';
 import 'package:planit/widgets/oauth_options.dart';
-import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,31 +20,50 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late TextEditingController userNameController = TextEditingController();
+  late TextEditingController emailController = TextEditingController();
   late TextEditingController passwordController = TextEditingController();
 
   bool _showPassword = false;
 
-  void handleSignIn() {
-    context.read<NavbarProvider>().setActiveIndex(0);
-    context.go("/");
+  Future<void> handleSignIn() async {
+    try {
+      final response = await postHelper("/api/auth/login/", {
+        'email': emailController.text,
+        'password': passwordController.text,
+      });
+
+      final res = DjangoResponse.fromRawJson(response.body);
+      if (!mounted) return;
+
+      if (response.statusCode == 200) {
+        Fluttertoast.showToast(
+            msg: "Login successful", toastLength: Toast.LENGTH_LONG);
+        context.go("/");
+        return;
+      }
+      if (res.errorCode == ErrorTypes.emailNotVerified.code) {
+        Fluttertoast.showToast(
+            msg: res.message, toastLength: Toast.LENGTH_LONG);
+        await context.push("/email-verify");
+        return;
+      }
+      Fluttertoast.showToast(msg: res.message, toastLength: Toast.LENGTH_LONG);
+    } catch (e) {
+      Fluttertoast.showToast(
+          msg: "Unkown error", toastLength: Toast.LENGTH_LONG);
+    }
   }
 
   void handleGoogleSignIn() async {
     try {
-      final accessToken = await GoogleAuth().signInWithGoogle();
-      final res = await http.post(
-        Uri.parse("http://192.168.29.20:8000/api/auth/google-auth/"),
-        headers: {'Content-type': 'application/json'},
-        body: jsonEncode({'token': accessToken}),
-      );
-
-      if (res.statusCode == 200) {
-        final jsonData = jsonDecode(res.body);
-        print(jsonData['response']['token']);
-      }
+      await GoogleAuth().signInWithGoogle(context);
+      if (!mounted) return;
+      context.go("/");
     } catch (e) {
-      print("Django app error");
+      Fluttertoast.showToast(
+          msg: "Unkown error",
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: Colors.red);
     }
   }
 
@@ -69,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 50.0),
               CustomInputField(
                 label: "Email",
-                controller: userNameController,
+                controller: emailController,
                 prefixIcon: const Icon(
                   Icons.person,
                   color: Colors.white,
