@@ -77,12 +77,12 @@ class _EventCreatePageState extends State<EventCreatePage> {
               const SizedBox(width: 20.0),
               Expanded(
                   child: CustomButton(
+                      disabled:
+                          context.watch<EventFormDataProvider>().nextDisabled,
                       text: activeIndex + 1 == steps.length ? "Submit" : "Next",
                       onPressed: () {
+                        
                         _handleNext();
-                        if (activeIndex == steps.length - 1) {
-                          print(context.read<EventFormDataProvider>().asMap);
-                        }
                       })),
             ],
           )
